@@ -45,7 +45,12 @@ def fetch_all_keywords(video_id):
             cur.execute("""SELECT critical_all_keywords FROM public.cs_ee_5m_test
                            WHERE video_id = %s LIMIT 1""", (video_id,))
             result = cur.fetchone()
-            return result[0] if result else []
+            if result and isinstance(result[0], list):
+                keywords = result[0]
+                if len(keywords) >= 5:
+                    return keywords[:20]  # cap to 20 max
+    return []  
+
 
 # === NLP & AI UTILITIES ===
 
@@ -75,16 +80,21 @@ def get_weighted_keywords(text, subject, level):
 
 def generate_mcqs_from_keywords(keywords, count):
     prompt = f'''
-Using the following list of keywords, generate {count} multiple-choice questions (MCQs) for degree-level Computer Science students.
+Using the following list of keywords, generate {count} high-quality multiple-choice questions (MCQs) tailored for undergraduate Computer Science students.
 
 Instructions:
-- Each MCQ must have 1 correct answer and 3 plausible distractors.
-- Tag each question with a difficulty level: L1, L2, or L3.
-- Create two types of questions:
-  1. Individual-topic questions: focus on understanding a single keyword or concept.
-  2. Combination-topic questions: use two or more related keywords to frame a question.
-- After the MCQs, indicate for each question if it’s based on an individual keyword or a combination, and list the keywords used.
-- Exclude irrelevant or out-of-context keywords.
+- Each MCQ must consist of a clear question stem, 4 answer choices (1 correct + 3 well-reasoned distractors), and a difficulty level tag: L1 (basic), L2 (intermediate), or L3 (advanced).
+- Ensure the options are conceptually close, plausible, and challenge critical thinking—avoid obvious wrong choices.
+- Generate two types of questions:
+  1. **Single-keyword questions**: Focus on the understanding or application of a single keyword or concept.
+  2. **Multi-keyword questions**: Integrate two or more keywords to frame a question that connects multiple ideas or topics.
+- Use only relevant keywords based on context. Discard vague, generic, or out-of-scope terms.
+- After each MCQ, add metadata in the following format:
+  - Type: Single / Multi
+  - Keywords used: list them clearly
+  - Difficulty: L1 / L2 / L3
+
+Make the questions academically sound, unambiguous, and varied in format (definition, scenario-based, conceptual, application).
 
 Keywords:
 {', '.join(keywords)}

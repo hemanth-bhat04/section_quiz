@@ -2,11 +2,17 @@
   "chapters": {
     "Introduction to Data Science": {
       "sections": {
+        "The Data Science Process": {
+          "keywords": [
+            "computer science",
+            "data science",
+            "making process computer science data scientists"
+          ],
+          "questions": null
+        },
         "introduction to data science": {
           "keywords": [],
-          "questions": {
-            "content": "Here are 3 multiple-choice questions (MCQs) for degree-level Computer Science students, based on the provided keywords:\n\nL1 (Individual-topic question):\nWhich of the following is an example of a linear data structure?\nA) Stack\nB) Queue\nC) Graph\nD) Hash Table\nCorrect answer: B) Queue\nKeywords: linear data structure\n\nL2 (Combination-topic question):\nConsider a binary search tree and a heap. Which of the following statements is true?\nA) Both are balanced trees with a height of O(log n)\nB) Binary search trees are always complete binary trees\nC) Heaps are used for efficient searching operations\nD) Binary search trees are used for priority queue operations\nCorrect answer: D) Binary search trees are used for priority queue operations\nKeywords: binary search tree, heap, priority queue\n\nL3 (Individual-topic question):\nWhich of the following is NOT a sorting algorithm?\nA) Bubble Sort\nB) Quick Sort\nC) Merge Sort\nD) Linear Search\nCorrect answer: D) Linear Search\nKeywords: sorting algorithm"
-          }
+          "questions": null
         },
         "test": {
           "keywords": [
@@ -14,19 +20,7 @@
             "data science",
             "making process computer science data scientists"
           ],
-          "questions": {
-            "content": "### Question 1: Individual-topic (L1)\nWhich of the following is NOT a primary focus of Computer Science?\nA) Algorithms\nB) Quantum Mechanics\nC) Programming Languages\nD) Microbiology\n\n**Answer: D**\n\n**Type:** Individual-topic\n**Keywords:** Computer Science\n\n### Question 2: Combination-topic (L2)\nIn the context of Data Science and Computer Science, which of the following is an essential skill for a data scientist to have?\nA) Proficiency in Quantum Computing\nB) Knowledge of Machine Learning Algorithms\nC) Expertise in Quantum Mechanics\nD) Mastery in Microbiology\n\n**Answer: A**\n\n**Type:** Combination-topic\n**Keywords:** Data Science, Computer Science\n\n### Question 3: Individual-topic (L3)\nThe \"making process\" in \"making process computer science data scientists\" refers to:\nA) The process of creating computer programs\nB) The process of collecting and processing data\nC) The process of developing data scientists\nD) The process of teaching computer science\n\n**Answer: C**\n\n**Type:** Individual-topic\n**Keywords:** Making process, Computer Science, Data Scientists"
-          }
-        },
-        "The Data Science Process": {
-          "keywords": [
-            "computer science",
-            "data science",
-            "making process computer science data scientists"
-          ],
-          "questions": {
-            "content": "### Individual-topic Questions\n\n#### Question 1: What is the primary focus of Computer Science?\nA. The study of living organisms\nB. The study of non-living systems\nC. The scientific method to solve problems related to computation, algorithms, and systems\nD. The application of scientific methods to the field of data\n\n**Difficulty Level: L1**\n**Type:** Individual-topic\n**Keyword:** computer science\n\n#### Question 2: Which field primarily concerns itself with extracting insights and information from structured and unstructured data?\nA. Computer Science\nB. Data Science\nC. Software Engineering\nD. Information Technology\n\n**Difficulty Level: L2**\n**Type:** Individual-topic\n**Keyword:** data science\n\n#### Question 3: In the context of making processes, what role do Data Scientists play in the field of Computer Science?\nA. Designing and implementing computer systems\nB. Analyzing and interpreting raw data to provide insights\nC. Developing software for business operations\nD. Conducting research in theoretical computer science\n\n**Difficulty Level: L3**\n**Type:** Individual-topic\n**Keyword:** making process, computer science, data scientists\n\n### Combination-topic Questions\n\n#### Question 4: Which of the following best describes the intersection of Computer Science and Data Science in the making process?\nA. Designing and implementing computer systems to analyze data\nB. Developing software without any data analysis component\nC. Purely theoretical research with no practical applications\nD. Managing business operations without the use of computers\n\n**Difficulty Level: L2**\n**Type:** Combination-topic\n**Keywords:** computer science, data science, making process\n\n#### Question 5: How do Computer Scientists and Data Scientists collaborate in the development of a predictive model?\nA. Computer Scientists design the model, and Data Scientists validate its accuracy.\nB. Both collaborate to design and validate the model, but Computer Scientists focus more on the algorithm.\nC. Data Scientists collect the data and develop the model, while Computer Scientists test its efficiency.\nD. The roles are interchangeable and both can perform any task in the development process.\n\n**Difficulty Level: L3**\n**Type:** Combination-topic\n**Keywords:** computer science, data science, predictive model\n\n#### Question 6: In the context of making processes, what is the significance of combining Computer Science with Data Science?\nA. It enhances the speed of data processing without any improvement in accuracy.\nB. It enables the development of more efficient algorithms for data analysis.\nC. It ensures that data-driven decisions are made without considering computational efficiency.\nD. It leads to the creation of applications that are neither user-friendly nor efficient.\n\n**Difficulty Level: L2**\n**Type:** Combination-topic\n**Keywords:** computer science, data science, making process\n\n---\n\n**Note:** The questions and answers are based on the provided keywords and are designed to test the understanding of Computer Science and Data Science concepts at various levels of difficulty. The categorization into individual-topic and combination-topic questions aims to assess the students' grasp of single concepts and their ability to apply knowledge across multiple areas."
-          }
+          "questions": null
         }
       },
       "chapter_questions": {
@@ -35,51 +29,28 @@
           "data science",
           "making process computer science data scientists"
         ],
-        "questions": {
-          "content": "### Individual-topic MCQs\n\n**Question 1:** What field combines scientific methods, processes, algorithms, and systems to extract knowledge and insights from structured and unstructured data?\nA) Computer Science\nB) Data Science\nC) Information Technology\nD) Software Engineering\n*Difficulty Level: L1*\n*Type: Individual-topic*\n*Keywords: data science*\n\n**Question 2:** The process of transforming raw data into actionable knowledge is known as:\nA) Data Mining\nB) Data Analysis\nC) Data Visualization\nD) Data Storage\n*Difficulty Level: L1*\n*Type: Individual-topic*\n*Keywords: making process*\n\n**Question 3:** In the context of Computer Science, which term refers to professionals who use scientific methods to analyze and interpret complex digital data patterns?\nA) Programmers\nB) Data Scientists\nC) Network Administrators\nD) Database Managers\n*Difficulty Level: L1*\n*Type: Individual-topic*\n*Keywords: computer science, data scientists*\n\n### Combination-topic MCQs\n\n**Question 4:** Which combination of fields is most relevant to developing algorithms that can learn from and make decisions or predictions based on data?\nA) Computer Science and Data Science\nB) Data Science and Artificial Intelligence\nC) Information Technology and Cybersecurity\nD) Software Engineering and Human-Computer Interaction\n*Difficulty Level: L2*\n*Type: Combination-topic*\n*Keywords: computer science, data science, making process*\n\n**Question 5:** How do Computer Science and the process of making sense of data interrelate in the field of Data Science?\nA) Computer Science provides the tools, while Data Science applies them to extract insights.\nB) Computer Science is a subset of Data Science, focusing only on data processing.\nC) Data Science is a subset of Computer Science, focusing only on data analysis.\nD) The two fields are entirely separate and do not interact.\n*Difficulty Level: L2*\n*Type: Combination-topic*\n*Keywords: computer science, data science, making process*"
-        }
+        "questions": null
       }
     },
     "Computer vision": {
       "sections": {
         "Edge detection": {
           "keywords": [
-            "median",
             "frequency domain",
+            "canny edge interpolation",
             "convolutional filter",
             "roberts step number original image differentiation",
+            "double edges sobel gradient bell kenny median value maximum suppression frequency domain canny edge interpolation",
             "double edges sobel gradient bell kenny median value maximum suppression",
-            "canny edge interpolation median numbers",
             "roberts step number original",
             "image",
             "differentiation",
             "gradient",
+            "median",
             "edge",
             "interpolation"
           ],
-          "questions": {
-            "content": "### Question 1: (L1) Individual-topic\nWhich of the following is a technique used for edge detection in image processing?\n\nA) Convolutional Filter\nB) Frequency Domain Analysis\nC) Median Filtering\nD) Interpolation\n\n**Answer: A**\n\n*Keywords used: convolutional filter*\n\n### Question 2: (L2) Combination-topic\nIn the context of image processing, which of the following methods involves both differentiation and edge detection?\n\nA) Median Filtering\nB) Frequency Domain Analysis\nC) Canny Edge Detection\nD) Interpolation\n\n**Answer: C**\n\n*Keywords used: canny edge, gradient*\n\n### Question 3: (L3) Combination-topic\nWhich of the following methods uses the concept of median value suppression in the context of edge detection?\n\nA) Roberts Cross Edge Detection\nB) Sobel Edge Detection\nC) Median Filtering\nD) Interpolation\n\n**Answer: B**\n\n*Keywords used: sobel gradient, median value maximum suppression*"
-          }
-        },
-        "Image Processing": {
-          "keywords": [
-            "singular value decomposition",
-            "filtering facebook",
-            "image processing",
-            "computer vision",
-            "information retrieval",
-            "linear algebra",
-            "image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation singular value decomposition mathematic equations information retrieval linear algebra",
-            "image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation",
-            "mathematic equations information retrieval linear algebra",
-            "people",
-            "tight relationship branches instagram matrix theory hair",
-            "eyes",
-            "filtering"
-          ],
-          "questions": {
-            "content": "### Multiple-Choice Questions\n\n**Q1: What is Singular Value Decomposition (SVD)?**\nL1\nA. A method used in image processing to enhance the visual quality of images.\nB. A technique in computer vision that helps in identifying objects within an image.\nC. A mathematical process that factorizes a matrix into three matrices, useful in various applications like image processing and information retrieval.\nD. A method for filtering images based on the color or texture of specific features.\n\n**Q2: Which of the following is NOT a common application of Singular Value Decomposition?**\nL2\nA. Image compression\nB. Face recognition in computer vision\nC. Solving linear equations in linear algebra\nD. Enhancing image resolution beyond the original dimensions\n\n**Q3: In the context of information retrieval, how does Linear Algebra contribute?**\nL2\nA. By helping in the optimization of search algorithms to rank results based on relevance.\nB. By directly processing and analyzing text data to understand the content.\nC. By filtering out irrelevant information from the search results based on predefined criteria.\nD. By enhancing the visual appearance of search results with images and videos.\n\n**Q4: Which of the following is an essential component in both computer vision and image processing?**\nL3\nA. Photoshop and Instagram for editing images and applying filters.\nB. The use of cameras and slides for capturing and displaying images.\nC. The analysis of illumination and signature in images.\nD. The application of Singular Value Decomposition for image enhancement.\n\n**Q5: In image processing, what is the primary goal of filtering?**\nL1\nA. To enhance the visual quality of images by reducing noise and sharpening details.\nB. To identify and extract specific features or objects from an image.\nC. To manipulate the color or texture of images beyond their original characteristics.\nD. To analyze the mathematical equations governing the formation of images.\n\n**Q6: Consider the following concepts: people, hair, eyes, and tight relationship. How do these concepts relate to branches of computer science?**\nL3\nA. People and hair are used in computer vision to analyze facial features and hairstyles, while eyes are crucial for understanding human emotions.\nB. Tight relationship refers to the strong connection between image processing and computer vision, which are essential for enhancing and interpreting images.\nC. Information retrieval systems have a tight relationship with people, as they are designed to retrieve personal data and preferences.\nD. The matrix theory plays a crucial role in understanding the structure of images, including people's hair and eyes, through linear algebra.\n\n**Q7: Which of the following is NOT a common method used in image processing and computer vision?**\nL2\nA. Singular Value Decomposition for image enhancement.\nB. Filtering Facebook posts to enhance visibility.\nC. Using mathematical equations to analyze and process images.\nD. Implementing information retrieval algorithms to search for specific images based on content.\n\n### Keywords Used\n\n- **Q1, Q2, Q5**: Singular Value Decomposition\n- **Q3, Q6**: Information Retrieval, Linear Algebra\n- **Q4, Q6**: Computer Vision, Image Processing\n- **Q7**: Filtering Facebook"
-          }
+          "questions": null
         },
         "Image Classification using Keras": {
           "keywords": [
@@ -91,7 +62,6 @@
             "classification models loss position index resize image",
             "models loss position index resize image",
             "images cell data",
-            "probabilities conversion deer sale",
             "classification",
             "highest",
             "prediction",
@@ -102,12 +72,26 @@
             "convolution",
             "pixel"
           ],
-          "questions": {
-            "content": "### MCQs\n\n#### Individual-topic Questions\n\n**Q1: What is the primary purpose of a neural network in image classification tasks?**\nA) To resize images for training\nB) To convert probabilities to pixel values\nC) To perform convolution operations on the input data\nD) To predict the class label of an input image\n*Correct Answer: D) To predict the class label of an input image*\n*Difficulty Level: L1\n*Keywords: neural network, image, classification, prediction*\n\n**Q2: In the context of a neural network, what is the role of a pooling layer?**\nA) To increase the resolution of input images\nB) To reduce the spatial dimensions of the feature maps\nC) To enhance the contrast of input images\nD) To apply a convolution filter to the input data\n*Correct Answer: B) To reduce the spatial dimensions of the feature maps*\n*Difficulty Level: L1\n*Keywords: layer, neural network, pooling*\n\n**Q3: During the training phase of a classification model, what is the significance of loss position index?**\nA) It determines the order in which data is loaded into the model\nB) It represents the position of the loss function in the model architecture\nC) It is used to identify the highest prediction models\nD) It measures the performance of the model on unseen test data\n*Correct Answer: B) It represents the position of the loss function in the model architecture*\n*Difficulty Level: L2\n*Keywords: models loss position index, training, classification models*\n\n#### Combination-topic Questions\n\n**Q4: In the context of image classification using neural networks, what is the purpose of resizing images, and how does it relate to the training process?**\nA) Resizing images increases the resolution of the input data, which can enhance the model's ability to learn detailed features.\nB) Resizing images reduces the computational complexity of the model by decreasing the size of the input data.\nC) Resizing images is not necessary for the training process as the neural network can handle variable sizes of input data.\nD) Resizing images is a form of data augmentation used to increase the diversity of the training dataset.\n*Correct Answer: A) Resizing images increases the resolution of the input data, which can enhance the model's ability to learn detailed features.*\n*Difficulty Level: L2\n*Keywords: image, resize, training*\n\n**Q5: In a neural network, how do convolution and pooling layers work together to improve the performance of classification models?**\nA) Convolution layers increase the spatial dimensions of the feature maps, while pooling layers decrease the computational complexity.\nB) Convolution layers reduce the spatial dimensions of the feature maps, while pooling layers enhance the features extracted by the convolution operation.\nC) Convolution layers apply a mathematical operation to the pixel values, while pooling layers combine the outputs of multiple neurons to reduce the dimensionality.\nD) Convolution layers perform a form of data augmentation, while pooling layers help in the interpretation of the results.\n*Correct Answer: C) Convolution layers apply a mathematical operation to the pixel values, while pooling layers combine the outputs of multiple neurons to reduce the dimensionality.*\n*Difficulty Level: L3\n*Keywords: convolution, pooling, models*\n\n**Q6: Why is it important to evaluate a classification model's performance on test data, and how does this relate to the concept of loss in machine learning?**\nA) Test data provides insights into the model's ability to generalize from training data, and loss measures the discrepancy between predicted and actual outputs.\nB) Test data is used to fine-tune the model's parameters, and loss is a measure of the model's efficiency in processing input data.\nC) Test data is a subset of the training data used to improve the model's accuracy, and loss is a penalty applied to incorrect predictions.\nD) Test data is used to train the model further, and loss is a measure of the diversity of the training dataset.\n*Correct Answer: A) Test data provides insights into the model's ability to generalize from training data, and loss measures the discrepancy between predicted and actual outputs.*\n*Difficulty Level: L2\n*Keywords: test data, classification models loss, models*"
-          }
+          "questions": null
+        },
+        "Image Processing": {
+          "keywords": [
+            "singular value decomposition",
+            "image processing",
+            "computer vision",
+            "information retrieval",
+            "linear algebra",
+            "image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation singular value decomposition mathematic equations information retrieval linear algebra",
+            "image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation",
+            "mathematic equations information retrieval linear algebra",
+            "people",
+            "tight relationship branches instagram matrix theory"
+          ],
+          "questions": null
         },
         "Convolutional Neural Networks": {
           "keywords": [
+            "fully connected layer",
             "image",
             "pixel",
             "image pixel",
@@ -116,51 +100,36 @@
             "letters pixel diagonals",
             "convolutional layer",
             "simple world gradient descent",
-            "fully connected layer",
-            "second filter highest score",
+            "artificial intelligence",
             "neural network",
             "forward slash",
             "gradient descent",
-            "artificial intelligence",
-            "random numbers",
-            "machine learning",
             "image pixel convolutional neural network",
             "convolution convolutional layer simple world gradient descent",
-            "fully connected layer gradient classifier resolution neural networks",
-            "gradient classifier resolution neural networks"
+            "fully connected layer gradient classifier resolution neural networks continuous version artificial intelligence",
+            "fully connected layer gradient classifier resolution neural networks continuous version",
+            "layers",
+            "convolution",
+            "pooling"
           ],
-          "questions": {
-            "content": "### Multiple-Choice Questions\n\n#### Question 1: L1 - Individual-topic\nWhich of the following is a fundamental unit in an image processing context?\nA) Pixel\nB) Gradient\nC) Convolutional layer\nD) Artificial intelligence\n\n**Answer: A) Pixel**\n\n#### Question 2: L2 - Combination-topic\nIn the context of Convolutional Neural Networks (CNNs), what does the term \"convolutional layer\" refer to?\nA) A layer that applies gradient descent to adjust weights\nB) A layer that processes each pixel of an image independently\nC) A layer that uses machine learning to classify letters based on their pixel diagonals\nD) A layer that applies filters to an image to enhance its resolution\n\n**Answer: B) A layer that processes each pixel of an image independently**\n\n#### Question 3: L3 - Combination-topic\nWhich of the following is NOT a standard technique used in training neural networks?\nA) Gradient descent\nB) Simple world gradient descent\nC) Fully connected layer\nD) Random numbers generation\n\n**Answer: B) Simple world gradient descent**\n\n### Explanation:\n- **Question 1** is an individual-topic question focusing on the concept of a pixel in image processing.\n- **Question 2** is a combination-topic question that uses the keywords \"Convolutional Neural Networks\" and \"convolutional layer\" to understand how convolutional layers process images in CNNs.\n- **Question 3** is a combination-topic question that requires knowledge of neural network training techniques, identifying \"Simple world gradient descent\" as not a standard technique, distinguishing it from \"Gradient descent\" and \"Fully connected layer.\""
-          }
+          "questions": null
         }
       },
       "chapter_questions": {
         "keywords": [
-          "median",
           "frequency domain",
+          "canny edge interpolation",
           "convolutional filter",
           "roberts step number original image differentiation",
+          "double edges sobel gradient bell kenny median value maximum suppression frequency domain canny edge interpolation",
           "double edges sobel gradient bell kenny median value maximum suppression",
-          "canny edge interpolation median numbers",
           "roberts step number original",
           "image",
           "differentiation",
           "gradient",
+          "median",
           "edge",
           "interpolation",
-          "singular value decomposition",
-          "filtering facebook",
-          "image processing",
-          "computer vision",
-          "information retrieval",
-          "linear algebra",
-          "image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation singular value decomposition mathematic equations information retrieval linear algebra",
-          "image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation",
-          "mathematic equations information retrieval linear algebra",
-          "people",
-          "tight relationship branches instagram matrix theory hair",
-          "eyes",
-          "filtering",
           "layer",
           "highest prediction models",
           "test data",
@@ -169,7 +138,6 @@
           "classification models loss position index resize image",
           "models loss position index resize image",
           "images cell data",
-          "probabilities conversion deer sale",
           "classification",
           "highest",
           "prediction",
@@ -178,50 +146,136 @@
           "training",
           "convolution",
           "pixel",
+          "singular value decomposition",
+          "image processing",
+          "computer vision",
+          "information retrieval",
+          "linear algebra",
+          "image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation singular value decomposition mathematic equations information retrieval linear algebra",
+          "image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation",
+          "mathematic equations information retrieval linear algebra",
+          "people",
+          "tight relationship branches instagram matrix theory",
+          "fully connected layer",
           "image pixel",
           "convolutional neural network",
           "slash letters pixel diagonals",
           "letters pixel diagonals",
           "convolutional layer",
           "simple world gradient descent",
-          "fully connected layer",
-          "second filter highest score",
+          "artificial intelligence",
           "forward slash",
           "gradient descent",
-          "artificial intelligence",
-          "random numbers",
-          "machine learning",
           "image pixel convolutional neural network",
           "convolution convolutional layer simple world gradient descent",
-          "fully connected layer gradient classifier resolution neural networks",
-          "gradient classifier resolution neural networks"
+          "fully connected layer gradient classifier resolution neural networks continuous version artificial intelligence",
+          "fully connected layer gradient classifier resolution neural networks continuous version",
+          "layers"
         ],
-        "questions": {
-          "content": "Here are 5 multiple-choice questions for degree-level Computer Science students based on the provided keywords:\n\nL1: In image processing, the Roberts cross operator is used for what purpose?\nA) Edge detection\nB) Image interpolation\nC) Image filtering\nD) Information retrieval\nCorrect Answer: A) Edge detection\nKeywords: roberts step number original image differentiation, edge\nType: Individual-topic\n\nL2: Which of the following is NOT a common technique used in image processing?\nA) Singular Value Decomposition (SVD)\nB) Median filtering\nC) Fourier Transform\nD) Pixel interpolation\nCorrect Answer: D) Pixel interpolation\nKeywords: frequency domain, singular value decomposition, filtering\nType: Individual-topic\n\nL3: In the context of convolutional neural networks, what is the role of the convolutional layer?\nA) To apply a filter to the input image\nB) To perform gradient descent optimization\nC) To classify the output\nD) To train the network with test data\nCorrect Answer: A) To apply a filter to the input image\nKeywords: convolutional neural network, convolution convolutional layer simple world gradient descent\nType: Individual-topic\n\nL1: Which of the following is a common loss function used in classification models?\nA) Pooling\nB) Training\nC) Cross-entropy\nD) Convolution\nCorrect Answer: C) Cross-entropy\nKeywords: models loss position index resize image, classification, highest prediction\nType: Individual-topic\n\nL2: In a convolutional neural network, what is the purpose of the fully connected layer?\nA) To apply gradient descent optimization\nB) To perform image interpolation\nC) To classify the output based on the highest score\nD) To store training data\nCorrect Answer: C) To classify the output based on the highest score\nKeywords: convolutional neural network, fully connected layer gradient classifier resolution neural networks\nType: Individual-topic\n\nL3: Which of the following is NOT a common technique used in image processing and computer vision?\nA) Image filtering\nB) Singular Value Decomposition (SVD)\nC) Photoshop\nD) Illumination adjustment\nCorrect Answer: B) Singular Value Decomposition (SVD)\nKeywords: image processing pictures computer vision cameras photoshop illumination slides signature probably theory difference equation, mathematic equations information retrieval linear algebra\nType: Combination-topic"
+        "questions": null
+      }
+    },
+    "Machine learning tools in python": {
+      "sections": {
+        "Sci-kit Learn": {
+          "keywords": [
+            "data science",
+            "machine learning",
+            "markup language",
+            "data preparation",
+            "programming language",
+            "web site",
+            "data science anaconda distribution operating systems",
+            "anaconda distribution operating systems",
+            "scikitlearn",
+            "greater"
+          ],
+          "questions": null
+        },
+        "Keras": {
+          "keywords": [
+            "softmax",
+            "training keras",
+            "neural network optimizers",
+            "neural network",
+            "dense layer data",
+            "dense layer",
+            "multiclass classification",
+            "softmax layer",
+            "image accuracy",
+            "batch size",
+            "data set",
+            "test data",
+            "class classification softmax test data metrics",
+            "classing multi",
+            "sequential model axis",
+            "optimizers",
+            "size",
+            "data",
+            "sub",
+            "classification"
+          ],
+          "questions": null
         }
+      },
+      "chapter_questions": {
+        "keywords": [
+          "data science",
+          "machine learning",
+          "markup language",
+          "data preparation",
+          "programming language",
+          "web site",
+          "data science anaconda distribution operating systems",
+          "anaconda distribution operating systems",
+          "scikitlearn",
+          "greater",
+          "softmax",
+          "training keras",
+          "neural network optimizers",
+          "neural network",
+          "dense layer data",
+          "dense layer",
+          "multiclass classification",
+          "softmax layer",
+          "image accuracy",
+          "batch size",
+          "data set",
+          "test data",
+          "class classification softmax test data metrics",
+          "classing multi",
+          "sequential model axis",
+          "optimizers",
+          "size",
+          "data",
+          "sub",
+          "classification"
+        ],
+        "questions": null
       }
     },
     "Machine learning algorithms": {
       "sections": {
-        "Logistic Regression": {
+        "Linear Regression": {
           "keywords": [
-            "logistic regression",
-            "data set",
-            "simple linear regression",
-            "birth weight data",
-            "age weight linearity",
+            "statistics",
             "independent variable",
-            "logistic function",
             "linear regression",
-            "odds ratio menstrual period predictor slope coefficient logistic regression weight exponential function equation association",
-            "value percent vertical axis",
-            "observations data",
-            "age",
-            "weight",
-            "linearity",
-            "predictions",
+            "null hypothesis",
+            "average value linear relationship",
+            "data set",
+            "linear relationship",
+            "values software packages average value",
+            "null hypothesis squares error term interpretation data",
+            "squares error term interpretation data",
+            "independent variable average value linear relationship",
+            "variation actual values",
+            "critical values",
+            "positive relationship",
+            "regressors",
+            "software",
             "interpretation",
-            "correlation"
+            "centroid"
           ],
           "questions": null
         },
@@ -250,28 +304,62 @@
           ],
           "questions": null
         },
-        "Linear Regression": {
+        "Logistic Regression": {
           "keywords": [
-            "statistics",
-            "independent variable",
-            "linear regression",
-            "null hypothesis",
-            "test data",
-            "average value linear relationship",
+            "logistic regression",
             "data set",
-            "linear relationship",
-            "values software packages average value",
-            "null hypothesis squares error term interpretation data",
-            "squares error term interpretation data",
-            "independent variable average value linear relationship",
-            "variation actual values",
-            "critical values",
-            "positive relationship",
-            "value goodness",
-            "regressors",
-            "correlation",
-            "ttest",
-            "software"
+            "simple linear regression",
+            "birth weight data",
+            "age weight linearity",
+            "independent variable",
+            "logistic function",
+            "linear regression",
+            "odds ratio menstrual period predictor slope coefficient logistic regression weight exponential function equation association",
+            "value percent vertical axis",
+            "observations data",
+            "age",
+            "weight",
+            "linearity",
+            "predictions",
+            "interpretation",
+            "correlation"
+          ],
+          "questions": null
+        },
+        "Support Vector Machines": {
+          "keywords": [
+            "support vector machines",
+            "vector machines",
+            "vector prediction constraint",
+            "optimization problem",
+            "lagrange multipliers",
+            "vector observations misclassifications",
+            "green dots outliers",
+            "maximum margin",
+            "classifier hyperplane",
+            "feature vector",
+            "decision boundary",
+            "binary classification",
+            "machine learning",
+            "vector prediction constraint optimization problem decision",
+            "vector machines lagrange multipliers kernel",
+            "dimensional space data point weight vector observations misclassifications",
+            "dimensional axis channel member polynomial kernel maximum margin classifier hyperplane",
+            "dimensional axis channel member polynomial kernel",
+            "dual variables",
+            "alphas hyperplanes"
+          ],
+          "questions": null
+        },
+        "Hierarchical clustering": {
+          "keywords": [
+            "cluster number dendrograms",
+            "heat maps sample number similarity clusters",
+            "number dendrograms",
+            "closest point colors",
+            "heat maps sample number similarity",
+            "clusters",
+            "quest gene manhattan distance square root"
           ],
           "questions": null
         },
@@ -288,42 +376,28 @@
           ],
           "questions": null
         },
-        "Support Vector Machines": {
+        "The modelling process": {
           "keywords": [
-            "support vector machines",
-            "vector machines",
-            "vector prediction constraint",
-            "optimization problem",
-            "lagrange multipliers",
-            "vector observations misclassifications",
-            "green dots outliers",
-            "maximum margin",
-            "classifier hyperplane soft margin",
-            "feature vector",
-            "decision boundary",
-            "binary classification",
-            "machine learning",
-            "vector prediction constraint optimization problem decision",
-            "vector machines lagrange multipliers kernel",
-            "dimensional space data point weight vector observations misclassifications",
-            "dimensional axis channel member polynomial kernel",
-            "dual variables",
-            "alphas hyperplanes",
-            "closest point"
-          ],
-          "questions": {
-            "content": "### Question 1 (L1, Individual-topic)\nWhat is the primary goal of a Support Vector Machine (SVM) in binary classification?\n\nA) To minimize the number of misclassifications.\nB) To find the closest data point to the decision boundary.\nC) **To maximize the margin between the closest data points of different classes.**\nD) To minimize the sum of squared errors.\n\n### Question 2 (L2, Combination-topic)\nIn the context of SVMs, what role do Lagrange multipliers play in the optimization problem?\n\nA) They determine the direction of the vector in the feature space.\nB) They are used to calculate the distance between the classifier hyperplane and the support vectors.\nC) **They are dual variables that help in finding the optimal solution by converting a constrained optimization problem into an unconstrained one.**\nD) They are used to calculate the weight vectors for each class in the dataset.\n\n### Question 3 (L3, Combination-topic)\nIn the case of a soft margin SVM, how does it differ from a hard margin SVM in terms of handling misclassifications?\n\nA) Soft margin SVM allows for a larger margin, while hard margin SVM does not.\nB) **Soft margin SVM permits some misclassifications with an aim to maximize the margin, whereas hard margin SVM aims for a perfect classification.**\nC) Soft margin SVM uses polynomial kernels to increase the margin, and hard margin SVM uses linear kernels.\nD) Soft margin SVM is more computationally intensive than hard margin SVM.\n\n### Explanation:\n- **Question 1** is an individual-topic question focusing on the primary goal of SVMs, which is to maximize the margin between the closest data points of different classes.\n- **Question 2** is a combination-topic question involving both SVMs and Lagrange multipliers, explaining their role in converting a constrained optimization problem into an unconstrained one.\n- **Question 3** also combines topics, this time comparing hard and soft margin SVMs in handling misclassifications, highlighting the allowance of some misclassifications in soft margin SVMs to maximize the margin."
-          }
-        },
-        "Hierarchical clustering": {
-          "keywords": [
-            "cluster number dendrograms",
-            "heat maps sample number similarity clusters",
-            "number dendrograms",
-            "closest point colors",
-            "heat maps sample number similarity",
-            "clusters",
-            "quest gene manhattan distance square root"
+            "cross validation data",
+            "cross validation",
+            "iteration best model",
+            "linear regression model observations",
+            "linear regression model",
+            "learn response vector",
+            "classification model",
+            "data set",
+            "feature selection",
+            "root mean squared error",
+            "learn response vector classification model",
+            "best model",
+            "higher values",
+            "selection scikit",
+            "squared error testing",
+            "testing accuracy",
+            "data",
+            "iteration",
+            "observations",
+            "iris"
           ],
           "questions": null
         },
@@ -346,52 +420,28 @@
             "mouse"
           ],
           "questions": null
-        },
-        "The modelling process": {
-          "keywords": [
-            "cross validation data",
-            "cross validation",
-            "iteration best model",
-            "linear regression model observations",
-            "linear regression model",
-            "learn response vector",
-            "classification model",
-            "machine learning",
-            "evaluation metrics reliable estimates",
-            "data science tuning parameters",
-            "data science",
-            "data set",
-            "feature selection",
-            "root mean squared error",
-            "learn response vector classification model",
-            "accurate estimate simple code partitions hyper parameters model evaluation trade",
-            "best model",
-            "higher values",
-            "selection scikit",
-            "reliable estimates"
-          ],
-          "questions": null
         }
       },
       "chapter_questions": {
         "keywords": [
-          "logistic regression",
-          "data set",
-          "simple linear regression",
-          "birth weight data",
-          "age weight linearity",
+          "statistics",
           "independent variable",
-          "logistic function",
           "linear regression",
-          "odds ratio menstrual period predictor slope coefficient logistic regression weight exponential function equation association",
-          "value percent vertical axis",
-          "observations data",
-          "age",
-          "weight",
-          "linearity",
-          "predictions",
+          "null hypothesis",
+          "average value linear relationship",
+          "data set",
+          "linear relationship",
+          "values software packages average value",
+          "null hypothesis squares error term interpretation data",
+          "squares error term interpretation data",
+          "independent variable average value linear relationship",
+          "variation actual values",
+          "critical values",
+          "positive relationship",
+          "regressors",
+          "software",
           "interpretation",
-          "correlation",
+          "centroid",
           "classification naive bayes",
           "naive bayes",
           "random variables",
@@ -411,29 +461,19 @@
           "bayes",
           "prediction",
           "data",
-          "statistics",
-          "null hypothesis",
-          "test data",
-          "average value linear relationship",
-          "linear relationship",
-          "values software packages average value",
-          "null hypothesis squares error term interpretation data",
-          "squares error term interpretation data",
-          "independent variable average value linear relationship",
-          "variation actual values",
-          "critical values",
-          "positive relationship",
-          "value goodness",
-          "regressors",
-          "ttest",
-          "software",
-          "decision tree",
-          "decision tree heart disease chest pain patient leaf nodes",
-          "numeric data blood circulation yesno question gini impurity separation cutoff weight news color choices",
-          "news color choices",
-          "total number",
-          "heart disease chest pain patient leaf nodes",
-          "numeric data blood circulation yesno question gini impurity separation cutoff",
+          "logistic regression",
+          "simple linear regression",
+          "birth weight data",
+          "age weight linearity",
+          "logistic function",
+          "odds ratio menstrual period predictor slope coefficient logistic regression weight exponential function equation association",
+          "value percent vertical axis",
+          "observations data",
+          "age",
+          "weight",
+          "linearity",
+          "predictions",
+          "correlation",
           "support vector machines",
           "vector machines",
           "vector prediction constraint",
@@ -442,17 +482,17 @@
           "vector observations misclassifications",
           "green dots outliers",
           "maximum margin",
-          "classifier hyperplane soft margin",
+          "classifier hyperplane",
           "feature vector",
           "decision boundary",
           "binary classification",
           "vector prediction constraint optimization problem decision",
           "vector machines lagrange multipliers kernel",
           "dimensional space data point weight vector observations misclassifications",
+          "dimensional axis channel member polynomial kernel maximum margin classifier hyperplane",
           "dimensional axis channel member polynomial kernel",
           "dual variables",
           "alphas hyperplanes",
-          "closest point",
           "cluster number dendrograms",
           "heat maps sample number similarity clusters",
           "number dendrograms",
@@ -460,6 +500,31 @@
           "heat maps sample number similarity",
           "clusters",
           "quest gene manhattan distance square root",
+          "decision tree",
+          "decision tree heart disease chest pain patient leaf nodes",
+          "numeric data blood circulation yesno question gini impurity separation cutoff weight news color choices",
+          "news color choices",
+          "total number",
+          "heart disease chest pain patient leaf nodes",
+          "numeric data blood circulation yesno question gini impurity separation cutoff",
+          "cross validation data",
+          "cross validation",
+          "iteration best model",
+          "linear regression model observations",
+          "linear regression model",
+          "learn response vector",
+          "classification model",
+          "feature selection",
+          "root mean squared error",
+          "learn response vector classification model",
+          "best model",
+          "higher values",
+          "selection scikit",
+          "squared error testing",
+          "testing accuracy",
+          "iteration",
+          "observations",
+          "iris",
           "python",
           "kmeans clustering",
           "euclidean distance initial clusters",
@@ -469,254 +534,38 @@
           "data points",
           "time",
           "variance",
-          "centroid",
-          "mouse",
-          "cross validation data",
-          "cross validation",
-          "iteration best model",
-          "linear regression model observations",
-          "linear regression model",
-          "learn response vector",
-          "classification model",
-          "evaluation metrics reliable estimates",
-          "data science tuning parameters",
-          "data science",
-          "feature selection",
-          "root mean squared error",
-          "learn response vector classification model",
-          "accurate estimate simple code partitions hyper parameters model evaluation trade",
-          "best model",
-          "higher values",
-          "selection scikit",
-          "reliable estimates"
-        ],
-        "questions": null
-      }
-    },
-    "Machine learning tools in python": {
-      "sections": {
-        "Keras": {
-          "keywords": [
-            "softmax",
-            "training keras",
-            "neural network optimizers",
-            "neural network",
-            "dense layer data",
-            "dense layer",
-            "multiclass classification",
-            "softmax layer",
-            "image accuracy",
-            "batch size",
-            "data set",
-            "test data",
-            "class classification softmax test data metrics",
-            "classing multi",
-            "sequential model",
-            "optimizers",
-            "size",
-            "data",
-            "sub",
-            "classification"
-          ],
-          "questions": null
-        },
-        "Sci-kit Learn": {
-          "keywords": [
-            "data science",
-            "machine learning",
-            "markup language",
-            "data preparation",
-            "programming language",
-            "web site",
-            "data science anaconda distribution operating systems",
-            "anaconda distribution operating systems",
-            "scikitlearn",
-            "greater"
-          ],
-          "questions": null
-        }
-      },
-      "chapter_questions": {
-        "keywords": [
-          "softmax",
-          "training keras",
-          "neural network optimizers",
-          "neural network",
-          "dense layer data",
-          "dense layer",
-          "multiclass classification",
-          "softmax layer",
-          "image accuracy",
-          "batch size",
-          "data set",
-          "test data",
-          "class classification softmax test data metrics",
-          "classing multi",
-          "sequential model",
-          "optimizers",
-          "size",
-          "data",
-          "sub",
-          "classification",
-          "data science",
-          "machine learning",
-          "markup language",
-          "data preparation",
-          "programming language",
-          "web site",
-          "data science anaconda distribution operating systems",
-          "anaconda distribution operating systems",
-          "scikitlearn",
-          "greater"
-        ],
-        "questions": null
-      }
-    },
-    "python tools for data analysis": {
-      "sections": {
-        "Matplotlib": {
-          "keywords": [
-            "documentation legend sorts",
-            "charts plot function numpy second array sake line graph real",
-            "legend sorts",
-            "world markers axes",
-            "documentation",
-            "numpy"
-          ],
-          "questions": null
-        },
-        "Pandas": {
-          "keywords": [
-            "square brackets data file",
-            "data file",
-            "data structure",
-            "filtering numpy linux python scalar value data structure",
-            "filtering numpy linux python scalar value",
-            "python",
-            "column names",
-            "data frame",
-            "square brackets",
-            "multiple columns",
-            "column slicing parenthesis months",
-            "numerical value single column average load",
-            "pandas",
-            "header",
-            "filtering",
-            "numpy",
-            "linux",
-            "scalar"
-          ],
-          "questions": null
-        },
-        "Seaborn": {
-          "keywords": [
-            "normal distribution",
-            "raw data",
-            "button histograms promotions",
-            "tutorial shapes",
-            "wanna axis eggs visitors",
-            "revenue data frame line graph"
-          ],
-          "questions": null
-        },
-        "Numpy": {
-          "keywords": [
-            "standard deviation",
-            "python list metadata random choice exceptions",
-            "easiest less space",
-            "single line range function",
-            "random values",
-            "random integers",
-            "less memory",
-            "python text file",
-            "metadata random choice exceptions",
-            "square brackets memory address",
-            "data",
-            "types",
-            "floatingpoint",
-            "value",
-            "numpy",
-            "twodimensional",
-            "array",
-            "standard",
-            "deviation",
-            "entire"
-          ],
-          "questions": null
-        }
-      },
-      "chapter_questions": {
-        "keywords": [
-          "documentation legend sorts",
-          "charts plot function numpy second array sake line graph real",
-          "legend sorts",
-          "world markers axes",
-          "documentation",
-          "numpy",
-          "square brackets data file",
-          "data file",
-          "data structure",
-          "filtering numpy linux python scalar value data structure",
-          "filtering numpy linux python scalar value",
-          "python",
-          "column names",
-          "data frame",
-          "square brackets",
-          "multiple columns",
-          "column slicing parenthesis months",
-          "numerical value single column average load",
-          "pandas",
-          "header",
-          "filtering",
-          "linux",
-          "scalar",
-          "normal distribution",
-          "raw data",
-          "button histograms promotions",
-          "tutorial shapes",
-          "wanna axis eggs visitors",
-          "revenue data frame line graph",
-          "standard deviation",
-          "python list metadata random choice exceptions",
-          "easiest less space",
-          "single line range function",
-          "random values",
-          "random integers",
-          "less memory",
-          "python text file",
-          "metadata random choice exceptions",
-          "square brackets memory address",
-          "data",
-          "types",
-          "floatingpoint",
-          "value",
-          "twodimensional",
-          "array",
-          "standard",
-          "deviation",
-          "entire"
+          "mouse"
         ],
         "questions": null
       }
     },
     "natural language processing": {
       "sections": {
-        "Parts of speech tagging": {
+        "sentiment analysis on tweets using NLTK": {
           "keywords": [
-            "conditional probability",
-            "noun corpora",
-            "joint probability",
-            "dynamic programming",
-            "tag sequence determiners",
-            "data speech",
-            "automatic tagging closed class",
-            "lexical category tags word classes",
-            "pointers",
-            "present participle internal structure trigrams",
-            "adverbs",
-            "training",
-            "corpora"
+            "sentiment analysis candidates",
+            "sentiment analysis",
+            "lambda natural language",
+            "natural language",
+            "stop word",
+            "data set",
+            "moving average",
+            "natural language toolkit",
+            "data frame subjectivity hashtag timestamp tweets numpy python",
+            "processing polarity couple",
+            "key dependencies",
+            "average punctuation",
+            "toolkit final results",
+            "candidates",
+            "data frame subjectivity hashtag timestamp tweets",
+            "numpy",
+            "python",
+            "lambda"
           ],
+          "questions": null
+        },
+        "Sentiment Analysis": {
+          "keywords": [],
           "questions": null
         },
         "tokenization": {
@@ -732,32 +581,39 @@
           ],
           "questions": null
         },
-        "Sentiment Analysis": {
-          "keywords": [],
+        "Parts of speech tagging": {
+          "keywords": [
+            "conditional probability",
+            "joint probability",
+            "dynamic programming",
+            "tag sequence determiners",
+            "data speech",
+            "automatic tagging closed class",
+            "present participle",
+            "lexical category tags word classes",
+            "pointers",
+            "training"
+          ],
           "questions": null
         },
-        "sentiment analysis on tweets using NLTK": {
+        "text mining": {
           "keywords": [
-            "sentiment analysis candidates",
-            "sentiment analysis",
-            "natural language",
+            "big data",
+            "classification domains",
+            "online sources",
+            "naive bayes",
+            "computer science",
             "natural language processing",
-            "stop word",
-            "data set",
-            "moving average",
-            "natural language toolkit",
-            "data frame subjectivity hashtag timestamp tweets numpy python",
-            "secret matplotlib natural language processing technique text blog",
-            "processing polarity couple",
-            "key dependencies",
-            "average punctuation",
-            "secret matplotlib",
-            "technique text blog",
-            "candidates",
-            "data frame subjectivity hashtag timestamp tweets",
-            "numpy",
-            "python",
-            "lambda"
+            "topic modeling",
+            "big data gender linguistic inquiry researchers",
+            "social relations sociology texas topic",
+            "gender linguistic inquiry researchers",
+            "sociology texas topic",
+            "social",
+            "relations",
+            "twitter",
+            "classification",
+            "online"
           ],
           "questions": null
         },
@@ -776,48 +632,28 @@
             "edge"
           ],
           "questions": null
-        },
-        "text mining": {
-          "keywords": [
-            "big data",
-            "classification domains",
-            "online sources",
-            "naive bayes",
-            "computational linguistics",
-            "computer science",
-            "natural language processing",
-            "topic modeling",
-            "big data gender linguistic inquiry researchers",
-            "social relations sociology texas topic",
-            "computational linguistics radha english webinar literature thematic analysis textual data individual words pilot studies",
-            "gender linguistic inquiry researchers",
-            "sociology texas topic",
-            "large data",
-            "topics folks",
-            "tips room hour",
-            "social",
-            "relations",
-            "radha english webinar literature thematic analysis textual data individual words pilot studies",
-            "author"
-          ],
-          "questions": null
         }
       },
       "chapter_questions": {
         "keywords": [
-          "conditional probability",
-          "noun corpora",
-          "joint probability",
-          "dynamic programming",
-          "tag sequence determiners",
-          "data speech",
-          "automatic tagging closed class",
-          "lexical category tags word classes",
-          "pointers",
-          "present participle internal structure trigrams",
-          "adverbs",
-          "training",
-          "corpora",
+          "sentiment analysis candidates",
+          "sentiment analysis",
+          "lambda natural language",
+          "natural language",
+          "stop word",
+          "data set",
+          "moving average",
+          "natural language toolkit",
+          "data frame subjectivity hashtag timestamp tweets numpy python",
+          "processing polarity couple",
+          "key dependencies",
+          "average punctuation",
+          "toolkit final results",
+          "candidates",
+          "data frame subjectivity hashtag timestamp tweets",
+          "numpy",
+          "python",
+          "lambda",
           "text processing",
           "packard word list",
           "english letters",
@@ -826,26 +662,32 @@
           "million word hewlett",
           "list",
           "corpus",
-          "sentiment analysis candidates",
-          "sentiment analysis",
-          "natural language",
+          "conditional probability",
+          "joint probability",
+          "dynamic programming",
+          "tag sequence determiners",
+          "data speech",
+          "automatic tagging closed class",
+          "present participle",
+          "lexical category tags word classes",
+          "pointers",
+          "training",
+          "big data",
+          "classification domains",
+          "online sources",
+          "naive bayes",
+          "computer science",
           "natural language processing",
-          "stop word",
-          "data set",
-          "moving average",
-          "natural language toolkit",
-          "data frame subjectivity hashtag timestamp tweets numpy python",
-          "secret matplotlib natural language processing technique text blog",
-          "processing polarity couple",
-          "key dependencies",
-          "average punctuation",
-          "secret matplotlib",
-          "technique text blog",
-          "candidates",
-          "data frame subjectivity hashtag timestamp tweets",
-          "numpy",
-          "python",
-          "lambda",
+          "topic modeling",
+          "big data gender linguistic inquiry researchers",
+          "social relations sociology texas topic",
+          "gender linguistic inquiry researchers",
+          "sociology texas topic",
+          "social",
+          "relations",
+          "twitter",
+          "classification",
+          "online",
           "natural language processing word",
           "edge cases blog posts",
           "net limitation python google speech word list edge cases blog posts",
@@ -853,92 +695,135 @@
           "word",
           "net limitation python google speech word",
           "stemming",
-          "edge",
-          "big data",
-          "classification domains",
-          "online sources",
-          "naive bayes",
-          "computational linguistics",
-          "computer science",
-          "topic modeling",
-          "big data gender linguistic inquiry researchers",
-          "social relations sociology texas topic",
-          "computational linguistics radha english webinar literature thematic analysis textual data individual words pilot studies",
-          "gender linguistic inquiry researchers",
-          "sociology texas topic",
-          "large data",
-          "topics folks",
-          "tips room hour",
-          "social",
-          "relations",
-          "radha english webinar literature thematic analysis textual data individual words pilot studies",
-          "author"
+          "edge"
+        ],
+        "questions": null
+      }
+    },
+    "python tools for data analysis": {
+      "sections": {
+        "Pandas": {
+          "keywords": [
+            "square brackets data file",
+            "data file",
+            "filtering numpy linux python",
+            "numpy linux python",
+            "python",
+            "column names",
+            "data frame",
+            "square brackets",
+            "multiple columns",
+            "column slicing parenthesis months",
+            "numerical value single column average load",
+            "filtering",
+            "pandas",
+            "header",
+            "numpy",
+            "linux"
+          ],
+          "questions": null
+        },
+        "Matplotlib": {
+          "keywords": [
+            "documentation legend sorts",
+            "charts plot function numpy second array sake line graph real",
+            "legend sorts",
+            "world markers axes",
+            "documentation",
+            "numpy"
+          ],
+          "questions": null
+        },
+        "Seaborn": {
+          "keywords": [
+            "normal distribution",
+            "raw data",
+            "button histograms promotions",
+            "tutorial shapes",
+            "wanna axis eggs visitors",
+            "revenue data frame line graph"
+          ],
+          "questions": null
+        },
+        "Numpy": {
+          "keywords": [
+            "standard deviation",
+            "python",
+            "easiest less space",
+            "single line range function",
+            "random values",
+            "random integers",
+            "less memory",
+            "python text file",
+            "data",
+            "types",
+            "floatingpoint",
+            "value",
+            "numpy",
+            "twodimensional",
+            "array",
+            "standard",
+            "deviation",
+            "entire",
+            "mathematical",
+            "operation"
+          ],
+          "questions": null
+        }
+      },
+      "chapter_questions": {
+        "keywords": [
+          "square brackets data file",
+          "data file",
+          "filtering numpy linux python",
+          "numpy linux python",
+          "python",
+          "column names",
+          "data frame",
+          "square brackets",
+          "multiple columns",
+          "column slicing parenthesis months",
+          "numerical value single column average load",
+          "filtering",
+          "pandas",
+          "header",
+          "numpy",
+          "linux",
+          "documentation legend sorts",
+          "charts plot function numpy second array sake line graph real",
+          "legend sorts",
+          "world markers axes",
+          "documentation",
+          "normal distribution",
+          "raw data",
+          "button histograms promotions",
+          "tutorial shapes",
+          "wanna axis eggs visitors",
+          "revenue data frame line graph",
+          "standard deviation",
+          "easiest less space",
+          "single line range function",
+          "random values",
+          "random integers",
+          "less memory",
+          "python text file",
+          "data",
+          "types",
+          "floatingpoint",
+          "value",
+          "twodimensional",
+          "array",
+          "standard",
+          "deviation",
+          "entire",
+          "mathematical",
+          "operation"
         ],
         "questions": null
       }
     },
     "The data science process": {
       "sections": {
-        "Exploratory Data analysis": {
-          "keywords": [
-            "interquartile range",
-            "chart outliers",
-            "median exploratory data analysis",
-            "exploratory data analysis",
-            "categorical variables",
-            "data file",
-            "data analysis",
-            "statistical methods",
-            "standard deviation",
-            "categorical data",
-            "data entry",
-            "range standard deviation maximum value",
-            "correlation second place bimodal distribution statistical methods",
-            "correlation second place bimodal distribution",
-            "box plot",
-            "data types",
-            "continuous data session test",
-            "choices tabular form descriptive",
-            "median",
-            "interval"
-          ],
-          "questions": null
-        },
-        "defining research goals and creating a project charter": {
-          "keywords": [
-            "quality assurance",
-            "ios",
-            "smaller project final design bottom line cheat sheet quality assurance",
-            "business case",
-            "expectations leadership opportunity deadlines",
-            "key stakeholders boundaries authority deliverables meetings project success site deployment business analyst",
-            "software",
-            "moment",
-            "smaller project final design bottom line cheat sheet"
-          ],
-          "questions": null
-        },
-        "model building": {
-          "keywords": [
-            "regressor full search degrees",
-            "model validation",
-            "interaction terms",
-            "full model",
-            "degrees of freedom",
-            "data set",
-            "search degrees",
-            "predictions data",
-            "value significance level",
-            "regressor",
-            "full",
-            "freedom",
-            "coefficient model terms data points",
-            "noise",
-            "interaction",
-            "value"
-          ],
-          "questions": null
-        },
         "Facets of Data": {
           "keywords": [
             "unstructured data",
@@ -949,6 +834,36 @@
             "ended question dimension datasets bernard relational database",
             "open",
             "spreadsheet"
+          ],
+          "questions": null
+        },
+        "Exploratory Data analysis": {
+          "keywords": [
+            "interquartile range",
+            "chart outliers",
+            "median exploratory data analysis",
+            "exploratory data analysis",
+            "categorical variables",
+            "data file",
+            "data analysis",
+            "standard deviation",
+            "categorical data",
+            "data entry",
+            "range standard deviation maximum value",
+            "box plot",
+            "data types",
+            "interval scales",
+            "median",
+            "outliers"
+          ],
+          "questions": null
+        },
+        "defining research goals and creating a project charter": {
+          "keywords": [
+            "business case",
+            "expectations leadership opportunity deadlines",
+            "key stakeholders boundaries authority deliverables meetings project success site deployment business analyst",
+            "software"
           ],
           "questions": null
         },
@@ -992,55 +907,31 @@
             "scaling"
           ],
           "questions": null
+        },
+        "model building": {
+          "keywords": [
+            "regressor full search degrees",
+            "model validation",
+            "interaction terms",
+            "full model",
+            "degrees of freedom",
+            "data set",
+            "search degrees",
+            "predictions data",
+            "value significance level",
+            "regressor",
+            "full",
+            "freedom",
+            "coefficient model terms data points",
+            "noise",
+            "interaction",
+            "value"
+          ],
+          "questions": null
         }
       },
       "chapter_questions": {
         "keywords": [
-          "interquartile range",
-          "chart outliers",
-          "median exploratory data analysis",
-          "exploratory data analysis",
-          "categorical variables",
-          "data file",
-          "data analysis",
-          "statistical methods",
-          "standard deviation",
-          "categorical data",
-          "data entry",
-          "range standard deviation maximum value",
-          "correlation second place bimodal distribution statistical methods",
-          "correlation second place bimodal distribution",
-          "box plot",
-          "data types",
-          "continuous data session test",
-          "choices tabular form descriptive",
-          "median",
-          "interval",
-          "quality assurance",
-          "ios",
-          "smaller project final design bottom line cheat sheet quality assurance",
-          "business case",
-          "expectations leadership opportunity deadlines",
-          "key stakeholders boundaries authority deliverables meetings project success site deployment business analyst",
-          "software",
-          "moment",
-          "smaller project final design bottom line cheat sheet",
-          "regressor full search degrees",
-          "model validation",
-          "interaction terms",
-          "full model",
-          "degrees of freedom",
-          "data set",
-          "search degrees",
-          "predictions data",
-          "value significance level",
-          "regressor",
-          "full",
-          "freedom",
-          "coefficient model terms data points",
-          "noise",
-          "interaction",
-          "value",
           "unstructured data",
           "artificial intelligence",
           "relational database",
@@ -1049,6 +940,26 @@
           "ended question dimension datasets bernard relational database",
           "open",
           "spreadsheet",
+          "interquartile range",
+          "chart outliers",
+          "median exploratory data analysis",
+          "exploratory data analysis",
+          "categorical variables",
+          "data file",
+          "data analysis",
+          "standard deviation",
+          "categorical data",
+          "data entry",
+          "range standard deviation maximum value",
+          "box plot",
+          "data types",
+          "interval scales",
+          "median",
+          "outliers",
+          "business case",
+          "expectations leadership opportunity deadlines",
+          "key stakeholders boundaries authority deliverables meetings project success site deployment business analyst",
+          "software",
           "domain knowledge categorical variables",
           "domain knowledge",
           "predictive model",
@@ -1077,13 +988,56 @@
           "algorithm",
           "garbage",
           "image",
-          "scaling"
+          "scaling",
+          "regressor full search degrees",
+          "model validation",
+          "interaction terms",
+          "full model",
+          "degrees of freedom",
+          "data set",
+          "search degrees",
+          "predictions data",
+          "value significance level",
+          "regressor",
+          "full",
+          "freedom",
+          "coefficient model terms data points",
+          "noise",
+          "interaction",
+          "value"
         ],
         "questions": null
       }
     },
     "types of machine learning": {
       "sections": {
+        "unsupervised learning": {
+          "keywords": [],
+          "questions": null
+        },
+        "semi-supervised learning": {
+          "keywords": [
+            "trained algorithm classification",
+            "clustering algorithms",
+            "weight data points",
+            "semisupervised predictions",
+            "document regression problem",
+            "supervised learning",
+            "expectationmaximization algorithm",
+            "trained algorithm classification clustering algorithms weight data points",
+            "gender supervisors",
+            "document",
+            "regression",
+            "problem",
+            "algorithm",
+            "classification",
+            "weight",
+            "semisupervised",
+            "image",
+            "convergence"
+          ],
+          "questions": null
+        },
         "supervised learning": {
           "keywords": [
             "target",
@@ -1099,10 +1053,6 @@
             "training",
             "regression"
           ],
-          "questions": null
-        },
-        "unsupervised learning": {
-          "keywords": [],
           "questions": null
         },
         "reinforcement learning": {
@@ -1128,45 +1078,36 @@
             "iteration"
           ],
           "questions": null
-        },
-        "semi-supervised learning": {
-          "keywords": [
-            "trained algorithm classification",
-            "clustering algorithms",
-            "weight data points",
-            "semisupervised predictions",
-            "document regression problem",
-            "supervised learning",
-            "expectationmaximization algorithm",
-            "trained algorithm classification clustering algorithms weight data points",
-            "gender supervisors",
-            "document",
-            "regression",
-            "problem",
-            "algorithm",
-            "classification",
-            "weight",
-            "semisupervised",
-            "image",
-            "convergence"
-          ],
-          "questions": null
         }
       },
       "chapter_questions": {
         "keywords": [
+          "trained algorithm classification",
+          "clustering algorithms",
+          "weight data points",
+          "semisupervised predictions",
+          "document regression problem",
+          "supervised learning",
+          "expectationmaximization algorithm",
+          "trained algorithm classification clustering algorithms weight data points",
+          "gender supervisors",
+          "document",
+          "regression",
+          "problem",
+          "algorithm",
+          "classification",
+          "weight",
+          "semisupervised",
+          "image",
+          "convergence",
           "target",
           "prediction learner",
           "algorithm classification input features",
-          "supervised learning",
           "decision boundary",
           "machine learning",
           "input features",
-          "algorithm",
-          "classification",
           "prediction",
           "training",
-          "regression",
           "current state movements foundations",
           "optimal policy reward functions",
           "agent iteration",
@@ -1184,21 +1125,7 @@
           "outputs",
           "inference",
           "agent",
-          "iteration",
-          "trained algorithm classification",
-          "clustering algorithms",
-          "weight data points",
-          "semisupervised predictions",
-          "document regression problem",
-          "expectationmaximization algorithm",
-          "trained algorithm classification clustering algorithms weight data points",
-          "gender supervisors",
-          "document",
-          "problem",
-          "weight",
-          "semisupervised",
-          "image",
-          "convergence"
+          "iteration"
         ],
         "questions": null
       }
