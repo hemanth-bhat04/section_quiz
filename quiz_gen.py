@@ -4,6 +4,8 @@ import re
 import requests
 import psycopg2
 from collections import defaultdict
+import time
+from datetime import datetime
 
 # === CONFIG ===
 COURSE_ID = 212
@@ -97,20 +99,31 @@ Keywords:
 # === PARALLEL QUIZ GENERATION ===
 
 def process_section(section, vids):
+    start_time = time.time()
+    print(f"   [{datetime.now().strftime('%H:%M:%S')}] Processing section: {section} (Videos: {len(vids)})")
+
     keywords = []
     for vid in vids:
         kws = fetch_all_keywords(vid)
         if isinstance(kws, list):
             keywords.extend(kws)
+
     text_blob = " ".join(keywords)
     weighted = get_weighted_keywords(text_blob, SUBJECT, LEVEL)
     qns = generate_mcqs_from_keywords(weighted, QUESTIONS_PER_SECTION)
+
+    elapsed = time.time() - start_time
+    print(f"    Finished section: {section} in {elapsed:.2f}s")
     return section, {"keywords": weighted, "questions": qns}
 
 def process_chapter(chapter, sections_dict):
+    start_time = time.time()
+    print(f"\n [{datetime.now().strftime('%H:%M:%S')}] Processing chapter: {chapter}")
+
     chapter_keywords = []
     chapter_data = {"sections": {}, "chapter_questions": None}
     futures = []
+
     with ThreadPoolExecutor(max_workers=4) as executor:
         for section, vids in sections_dict.items():
             futures.append(executor.submit(process_section, section, vids))
@@ -118,14 +131,23 @@ def process_chapter(chapter, sections_dict):
             section_name, result = fut.result()
             chapter_data["sections"][section_name] = result
             chapter_keywords.extend(result["keywords"])
+
     deduped_keywords = list(dict.fromkeys(chapter_keywords))
+
+    print(f" Generating chapter-level MCQs for: {chapter}")
     chapter_data["chapter_questions"] = {
         "keywords": deduped_keywords,
         "questions": generate_mcqs_from_keywords(deduped_keywords, QUESTIONS_PER_CHAPTER)
     }
+
+    elapsed = time.time() - start_time
+    print(f" Finished chapter: {chapter} in {elapsed:.2f}s")
     return chapter, chapter_data
 
 def generate_quiz_parallel(course_id):
+    print(f"\n Starting parallel quiz generation for course ID: {course_id}")
+    start_time = time.time()
+
     structure = fetch_course_structure(course_id)
     data_by_chapter = defaultdict(lambda: defaultdict(list))
     for chapter, section, vid in structure:
@@ -133,6 +155,7 @@ def generate_quiz_parallel(course_id):
 
     quiz_output = {"chapters": {}}
     futures = []
+
     with ThreadPoolExecutor(max_workers=2) as executor:
         for chap, sections in data_by_chapter.items():
             futures.append(executor.submit(process_chapter, chap, sections))
@@ -142,7 +165,9 @@ def generate_quiz_parallel(course_id):
 
     with open("quiz_output.json", "w") as f:
         json.dump(quiz_output, f, indent=2)
-    print("\n✅ Parallel quiz generation complete. Output saved to quiz_output.json")
+
+    total_elapsed = time.time() - start_time
+    print(f"\n Parallel quiz generation complete in {total_elapsed:.2f}s. Output saved to quiz_output.json")
 
 # Trigger
 generate_quiz_parallel(COURSE_ID)
