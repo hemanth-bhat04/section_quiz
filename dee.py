@@ -6,6 +6,7 @@ import psycopg2
 from collections import defaultdict
 import time
 from datetime import datetime
+from dee_1 import insert_questions
 
 # === CONFIG ===
 COURSE_ID = 212
