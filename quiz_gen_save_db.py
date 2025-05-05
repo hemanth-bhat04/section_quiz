@@ -6,6 +6,8 @@ import psycopg2
 from collections import defaultdict
 import time
 from datetime import datetime
+from dee_1 import insert_questions  # <<== Saving to local DB
+# from parse_utils import parse_mcq_output  # Uncomment if parser is external
 
 # === CONFIG ===
 COURSE_ID = 212
@@ -16,9 +18,9 @@ FAST_MODE = True
 
 QUESTIONS_PER_SECTION = 3 if FAST_MODE else 20
 QUESTIONS_PER_CHAPTER = 5 if FAST_MODE else 50
-AI_DELAY_SECONDS = 7  # Increased delay between AI calls
-MAX_KEYWORDS = 15     # Cap keywords passed to AI
-MAX_RETRIES = 3       # Increase retries to 3
+AI_DELAY_SECONDS = 7
+MAX_KEYWORDS = 15
+MAX_RETRIES = 3
 
 AI_URL = "http://164.52.212.233:8010/pi-chat-prod"
 NLP_URL = "http://164.52.192.242:8001/search-nlp-keywords/"
@@ -96,15 +98,13 @@ Instructions:
 - Each MCQ must consist of a clear question stem, 4 answer choices (1 correct + 3 well-reasoned distractors), and a difficulty level tag: L1 (basic), L2 (intermediate), or L3 (advanced).
 - Ensure the options are conceptually close, plausible, and challenge critical thinking—avoid obvious wrong choices.
 - Generate two types of questions:
-  1. **Single-keyword questions**: Focus on the understanding or application of a single keyword or concept.
-  2. **Multi-keyword questions**: Integrate two or more keywords to frame a question that connects multiple ideas or topics.
-- Use only relevant keywords based on context. Discard vague, generic, or out-of-scope terms.
-- After each MCQ, add metadata in the following format:
+  1. **Single-keyword questions**
+  2. **Multi-keyword questions**
+- Use only relevant keywords. Discard vague, generic, or out-of-scope terms.
+- After each MCQ, add metadata:
   - Type: Single / Multi
-  - Keywords used: list them clearly
+  - Keywords used: list them
   - Difficulty: L1 / L2 / L3
-
-Make the questions academically sound, unambiguous, and varied in format (definition, scenario-based, conceptual, application).
 
 Keywords:
 {', '.join(keywords)}
@@ -129,6 +129,16 @@ Keywords:
     print("[Final Warning] Skipped this generation after 3 failed attempts.")
     return None
 
+# === PARSING FUNCTION ===
+
+def parse_mcq_output(ai_response):
+    """
+    Expects AI response with structure like:
+    {"choices": [{"question": "...", "options": [...], "correct_option": "A", ...}, ...]}
+    Returns: List[dict]
+    """
+    return ai_response if isinstance(ai_response, list) else []
+
 # === SEQUENTIAL QUIZ GENERATION ===
 
 def process_section(section, vids):
@@ -150,6 +160,11 @@ def process_section(section, vids):
 
     qns = generate_mcqs_from_keywords(weighted, QUESTIONS_PER_SECTION)
 
+    # === DB SAVE SECTION QUESTIONS ===
+    if qns and "choices" in qns:
+        parsed_qs = parse_mcq_output(qns["choices"])
+        insert_questions(COURSE_ID, chapter=None, section=section, questions=parsed_qs)
+
     elapsed = time.time() - start_time
     print(f"    Finished section: {section} in {elapsed:.2f}s")
     return section, {"keywords": weighted, "questions": qns}
@@ -161,7 +176,6 @@ def process_chapter(chapter, sections_dict):
     chapter_keywords = []
     chapter_data = {"sections": {}, "chapter_questions": None}
 
-    # Process sections sequentially
     for section, vids in sections_dict.items():
         section_name, result = process_section(section, vids)
         chapter_data["sections"][section_name] = result
@@ -174,10 +188,16 @@ def process_chapter(chapter, sections_dict):
         chapter_data["chapter_questions"] = {"keywords": [], "questions": None}
     else:
         print(f" Generating chapter-level MCQs for: {chapter}")
+        chapter_qns = generate_mcqs_from_keywords(deduped_keywords, QUESTIONS_PER_CHAPTER)
         chapter_data["chapter_questions"] = {
             "keywords": deduped_keywords,
-            "questions": generate_mcqs_from_keywords(deduped_keywords, QUESTIONS_PER_CHAPTER)
+            "questions": chapter_qns
         }
+
+        # === DB SAVE CHAPTER QUESTIONS ===
+        if chapter_qns and "choices" in chapter_qns:
+            parsed_chap_qs = parse_mcq_output(chapter_qns["choices"])
+            insert_questions(COURSE_ID, chapter=chapter, section=None, questions=parsed_chap_qs)
 
     elapsed = time.time() - start_time
     print(f" Finished chapter: {chapter} in {elapsed:.2f}s")
