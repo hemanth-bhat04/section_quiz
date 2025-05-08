@@ -1,13 +1,9 @@
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import json
-import re
-import requests
 import psycopg2
-from collections import defaultdict
+import requests
 import time
+import json
+from collections import defaultdict
 from datetime import datetime
-from dee_1 import insert_questions  # <<== Saving to local DB
-# from parse_utils import parse_mcq_output  # Uncomment if parser is external
 
 # === CONFIG ===
 COURSE_ID = 212
@@ -15,18 +11,29 @@ VIDEO_TYPE = 2
 SUBJECT = "computer science"
 LEVEL = "computer science"
 FAST_MODE = True
-
-QUESTIONS_PER_SECTION = 3 if FAST_MODE else 20
-QUESTIONS_PER_CHAPTER = 5 if FAST_MODE else 50
+QUESTIONS_PER_SECTION = 2 if FAST_MODE else 20
+QUESTIONS_PER_CHAPTER = 1 if FAST_MODE else 50
 AI_DELAY_SECONDS = 7
 MAX_KEYWORDS = 15
 MAX_RETRIES = 3
-
 AI_URL = "http://164.52.212.233:8010/pi-chat-prod"
 NLP_URL = "http://164.52.192.242:8001/search-nlp-keywords/"
 HEADERS = {"Content-Type": "application/json"}
 
-# === DB FUNCTIONS ===
+# === DB CONFIG ===
+LOCAL_DB_CONFIG = {
+    "dbname": "quiz_chaptermaster",
+    "user": "postgres",
+    "password": "Hemanth",
+    "host": "localhost",
+    "port": "5432"
+}
+
+# === UTILITIES ===
+
+def clean_phrase(text):
+    import re
+    return " ".join(re.sub(r'[^a-zA-Z0-9\\s]', '', text.lower()).split())
 
 def fetch_course_structure(course_id):
     query = f"""
@@ -40,8 +47,7 @@ def fetch_course_structure(course_id):
                           password="prjeev@275", port="5432") as conn:
         with conn.cursor() as cur:
             cur.execute(query)
-            rows = cur.fetchall()
-    return rows
+            return cur.fetchall()
 
 def fetch_all_keywords(video_id):
     with psycopg2.connect(dbname="piruby_automation", user="postgres", host="164.52.194.25",
@@ -51,21 +57,12 @@ def fetch_all_keywords(video_id):
                            WHERE video_id = %s LIMIT 1""", (video_id,))
             result = cur.fetchone()
             if result and isinstance(result[0], list):
-                keywords = result[0]
-                if keywords:
-                    return keywords[:20]
+                return result[0][:20]
     return []
-
-# === NLP & AI UTILITIES ===
-
-def clean_phrase(text):
-    text = re.sub(r'[^a-zA-Z0-9\s]', '', text.lower())
-    return " ".join(text.split())
 
 def get_weighted_keywords(text, subject, level):
     if not text.strip():
         return []
-
     payload = {
         'url': 'test',
         'section_title': [''],
@@ -78,151 +75,109 @@ def get_weighted_keywords(text, subject, level):
     try:
         res = requests.post(NLP_URL, json=payload, headers=HEADERS, timeout=30)
         if res.status_code == 200:
-            data = res.json().get("nlp_response_output", {})
-            raw_phrases = data.get("phraseScorelist", [])
+            raw_phrases = res.json().get("nlp_response_output", {}).get("phraseScorelist", [])
             return [clean_phrase(p[0]) for p in sorted(raw_phrases, key=lambda x: -x[1])][:20]
     except Exception as e:
         print(f"[Error] NLP keyword extraction failed: {e}")
     return []
 
 def generate_mcqs_from_keywords(keywords, count):
-    if not keywords:
-        print("[Warning] No keywords provided — Skipping MCQ generation")
-        return None
-
-    keywords = keywords[:MAX_KEYWORDS]
     prompt = f'''
-Using the following list of keywords, generate {count} high-quality multiple-choice questions (MCQs) tailored for undergraduate Computer Science students.
-
-Instructions:
-- Each MCQ must consist of a clear question stem, 4 answer choices (1 correct + 3 well-reasoned distractors), and a difficulty level tag: L1 (basic), L2 (intermediate), or L3 (advanced).
-- Ensure the options are conceptually close, plausible, and challenge critical thinking—avoid obvious wrong choices.
-- Generate two types of questions:
-  1. **Single-keyword questions**
-  2. **Multi-keyword questions**
-- Use only relevant keywords. Discard vague, generic, or out-of-scope terms.
-- After each MCQ, add metadata:
-  - Type: Single / Multi
-  - Keywords used: list them
-  - Difficulty: L1 / L2 / L3
-
-Keywords:
+Generate {count} computer science MCQs using the following keywords:
 {', '.join(keywords)}
+
+Return ONLY a valid JSON list where each question has this format:
+{{
+  "question_text": "Your question here",
+  "option_a": "Option A",
+  "option_b": "Option B",
+  "option_c": "Option C",
+  "option_d": "Option D",
+  "correct_answer": "C",
+  "correct_answer_text": "Full answer text of correct option",
+  "answer_explanation": "Why this is correct",
+  "difficulty_level": "L1",
+  "questiontype": "Single",
+  "subject": "{SUBJECT}",
+  "course": "{LEVEL}",
+  "chapter": "Test Chapter",
+  "section_name": "Test Section"
+}}
+Only output the JSON list — no explanation.
 '''
     payload = {"prompt": prompt}
-
-    print(f"[Info] Generating MCQs | Keywords count: {len(keywords)} | Prompt length: {len(prompt)} characters")
     time.sleep(AI_DELAY_SECONDS)
 
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             res = requests.post(AI_URL, headers=HEADERS, json=payload, timeout=60)
-            if res.status_code == 200:
-                return res.json()
-            else:
-                print(f"[Warning] AI generation failed (Attempt {attempt}) — Status code: {res.status_code}")
+            res.raise_for_status()
+            full_response = res.json()
+            print("=== RAW AI RESPONSE ===")
+            print(full_response)
+            raw_text = full_response.get("response") or full_response.get("content", "")
+            return json.loads(raw_text)
         except Exception as e:
-            print(f"[Error] AI MCQ generation failed (Attempt {attempt}): {e}")
+            print(f"[AI Error] Attempt {attempt}: {e}")
+            time.sleep(AI_DELAY_SECONDS)
+    return []
 
-        time.sleep(AI_DELAY_SECONDS)
-
-    print("[Final Warning] Skipped this generation after 3 failed attempts.")
-    return None
-
-# === PARSING FUNCTION ===
-
-def parse_mcq_output(ai_response):
-    """
-    Expects AI response with structure like:
-    {"choices": [{"question": "...", "options": [...], "correct_option": "A", ...}, ...]}
-    Returns: List[dict]
-    """
-    return ai_response if isinstance(ai_response, list) else []
-
-# === SEQUENTIAL QUIZ GENERATION ===
+def insert_questions_to_db(questions):
+    try:
+        conn = psycopg2.connect(**LOCAL_DB_CONFIG)
+        cur = conn.cursor()
+        for idx, q in enumerate(questions):
+            try:
+                cur.execute(
+                    '''INSERT INTO public."BaseModel_quizchaptermaster"
+                    (question_text, option_a, option_b, option_c, option_d, correct_answer,
+                     correct_answer_text, answer_explanation, difficulty_level, questiontype,
+                     subject, course, chapter, section_name)
+                     VALUES (%(question_text)s, %(option_a)s, %(option_b)s, %(option_c)s, %(option_d)s, %(correct_answer)s,
+                             %(correct_answer_text)s, %(answer_explanation)s, %(difficulty_level)s, %(questiontype)s,
+                             %(subject)s, %(course)s, %(chapter)s, %(section_name)s)
+                    ''', q
+                )
+                print(f"[Insert] Question {idx+1} inserted.")
+            except Exception as e:
+                print(f"[DB Insert Error] Q{idx+1}: {e}")
+        conn.commit()
+    except Exception as e:
+        print(f"[DB Connection Error] {e}")
+    finally:
+        if 'cur' in locals(): cur.close()
+        if 'conn' in locals(): conn.close()
 
 def process_section(section, vids):
-    start_time = time.time()
-    print(f"   [{datetime.now().strftime('%H:%M:%S')}] Processing section: {section} (Videos: {len(vids)})")
-
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] Processing section: {section}")
     keywords = []
     for vid in vids:
         kws = fetch_all_keywords(vid)
         if isinstance(kws, list):
             keywords.extend(kws)
-
     text_blob = " ".join(keywords)
     weighted = get_weighted_keywords(text_blob, SUBJECT, LEVEL)
-
     if not weighted:
-        print(f"    No weighted keywords for section '{section}' — Skipping MCQ generation")
-        return section, {"keywords": [], "questions": None}
+        print(f"[Skip] No weighted keywords for section '{section}'")
+        return []
+    return generate_mcqs_from_keywords(weighted, QUESTIONS_PER_SECTION)
 
-    qns = generate_mcqs_from_keywords(weighted, QUESTIONS_PER_SECTION)
-
-    # === DB SAVE SECTION QUESTIONS ===
-    if qns and "choices" in qns:
-        parsed_qs = parse_mcq_output(qns["choices"])
-        insert_questions(COURSE_ID, chapter=None, section=section, questions=parsed_qs)
-
-    elapsed = time.time() - start_time
-    print(f"    Finished section: {section} in {elapsed:.2f}s")
-    return section, {"keywords": weighted, "questions": qns}
-
-def process_chapter(chapter, sections_dict):
-    start_time = time.time()
-    print(f"\n [{datetime.now().strftime('%H:%M:%S')}] Processing chapter: {chapter}")
-
-    chapter_keywords = []
-    chapter_data = {"sections": {}, "chapter_questions": None}
-
-    for section, vids in sections_dict.items():
-        section_name, result = process_section(section, vids)
-        chapter_data["sections"][section_name] = result
-        chapter_keywords.extend(result["keywords"])
-
-    deduped_keywords = list(dict.fromkeys(chapter_keywords))[:MAX_KEYWORDS]
-
-    if not deduped_keywords:
-        print(f" No aggregated keywords for chapter '{chapter}' — Skipping chapter MCQs")
-        chapter_data["chapter_questions"] = {"keywords": [], "questions": None}
-    else:
-        print(f" Generating chapter-level MCQs for: {chapter}")
-        chapter_qns = generate_mcqs_from_keywords(deduped_keywords, QUESTIONS_PER_CHAPTER)
-        chapter_data["chapter_questions"] = {
-            "keywords": deduped_keywords,
-            "questions": chapter_qns
-        }
-
-        # === DB SAVE CHAPTER QUESTIONS ===
-        if chapter_qns and "choices" in chapter_qns:
-            parsed_chap_qs = parse_mcq_output(chapter_qns["choices"])
-            insert_questions(COURSE_ID, chapter=chapter, section=None, questions=parsed_chap_qs)
-
-    elapsed = time.time() - start_time
-    print(f" Finished chapter: {chapter} in {elapsed:.2f}s")
-    return chapter, chapter_data
-
-def generate_quiz_sequential(course_id):
-    print(f"\n Starting SEQUENTIAL quiz generation for course ID: {course_id}")
-    start_time = time.time()
-
+def generate_quiz(course_id):
+    print(f"== Generating quiz for course ID {course_id} ==")
     structure = fetch_course_structure(course_id)
     data_by_chapter = defaultdict(lambda: defaultdict(list))
     for chapter, section, vid in structure:
         data_by_chapter[chapter][section].append(vid)
 
-    quiz_output = {"chapters": {}}
-
     for chap, sections in data_by_chapter.items():
-        chapter_name, chapter_result = process_chapter(chap, sections)
-        quiz_output["chapters"][chapter_name] = chapter_result
+        for section, vids in sections.items():
+            questions = process_section(section, vids)
+            if questions:
+                for q in questions:
+                    q["chapter"] = chap
+                    q["section_name"] = section
+                insert_questions_to_db(questions)
+    print("[Complete] All questions generated and saved.")
 
-    with open("quiz_output.json", "w") as f:
-        json.dump(quiz_output, f, indent=2)
-
-    total_elapsed = time.time() - start_time
-    print(f"\n SEQUENTIAL quiz generation complete in {total_elapsed:.2f}s. Output saved to quiz_output.json")
-
-# === Trigger ===
-generate_quiz_sequential(COURSE_ID)
+# === Run ===
+generate_quiz(COURSE_ID)
