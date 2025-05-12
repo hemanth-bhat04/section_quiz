@@ -83,19 +83,19 @@ def get_weighted_keywords(text, subject, level):
 
 def generate_mcqs_from_keywords(keywords, count):
     prompt = f'''
-Generate {count} computer science MCQs using the following keywords:
+Generate {count} computer science MCQs strictly focused on questions that include relevant code snippets using the following keywords:
 {', '.join(keywords)}
 
-Return ONLY a valid JSON list where each question has this format:
+Return ONLY a valid JSON list where each question strictly contains a code snippet for context and follows this format:
 {{
-  "question_text": "Your question here",
+  "question_text": "Your question here, must include a code snippet",
   "option_a": "Option A",
   "option_b": "Option B",
   "option_c": "Option C",
   "option_d": "Option D",
   "correct_answer": "C",
   "correct_answer_text": "Full answer text of correct option",
-  "answer_explanation": "Why this is correct",
+  "answer_explanation": "Detailed explanation including code analysis",
   "difficulty_level": "L1",
   "questiontype": "Single",
   "subject": "{SUBJECT}",
@@ -113,8 +113,8 @@ Only output the JSON list — no explanation.
             res = requests.post(AI_URL, headers=HEADERS, json=payload, timeout=60)
             res.raise_for_status()
             full_response = res.json()
-            #print("=== RAW AI RESPONSE ===")
-            #print(full_response)
+            print("=== RAW AI RESPONSE ===")
+            print(full_response)
             raw_text = full_response.get("response") or full_response.get("content", "")
             return json.loads(raw_text)
         except Exception as e:
