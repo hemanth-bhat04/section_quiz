@@ -24,7 +24,7 @@ HEADERS = {"Content-Type": "application/json"}
 LOCAL_DB_CONFIG = {
     "dbname": "quiz_chaptermaster",
     "user": "postgres",
-    "password": "Inetframe",
+    "password": "Hemanth",
     "host": "localhost",
     "port": "5432"
 }

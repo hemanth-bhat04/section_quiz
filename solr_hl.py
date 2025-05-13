@@ -14,13 +14,16 @@ def solr_direct_video_search(keywords: list, solr_core: str, subject: str, fq_la
 
     query = '"' + '" "'.join(keywords) + '"'
 
-    fqval = '-accent:(oriental international) AND text:[* TO *]  AND ' \
+    '''fqval = '-accent:(oriental international) AND text:[* TO *]  AND ' \
             '-channel_id:(UCX440GeRutiFNrkjuQAyw_A UCkDw-LPU1Nnd2WRsfnDbUcA UCcErZD9wUPQONYaoRXWX-hw ' \
             'UCFSgCD7s77pJVfXU_TJiRXg UCsvqVGtbbyHaMoevxPAq9Fg UCkw4JCwteGrDHIsyIIKo4tQ UCCktnahuRFYIBtNnKT5IYyg ' \
-            'UCQVdp4WkoUXiYn1jEFejePA UCnTeXg4Pck9JGhZvCmEQAiQ)'
+            'UCQVdp4WkoUXiYn1jEFejePA UCnTeXg4Pck9JGhZvCmEQAiQ)' '''
+    fqval = 'question:[* TO *]'
+
 
     if fq_lang_list:
-        fqval += ' AND -title:("' + '" "'.join(fq_lang_list) + '")'
+        #fqval += ' AND -title:("' + '" "'.join(fq_lang_list) + '")'
+        fqval += ' AND -subject:("' + '" "'.join(fq_lang_list) + '")'
 
     query_params = {
         'q': query,
@@ -147,5 +150,5 @@ def get_highlighted_words(highlights: dict, ord_vid_list: list, multi_valued_hl_
 
     return ordered_highlights
 
-result = solr_direct_video_search(['python', 'programming','sets','tuples','dictionaries','data structures','api','java','web','scraping','javascript','machine learning','artificial intelligence','grow','programming'], 'rp_quiz', 'computer science', [''])
+result = solr_direct_video_search(['tuples','sets','lists', 'dictionaries', 'arrays', 'stacks', 'queues', 'hashmaps', 'linked lists', 'trees', 'graphs', 'heaps', 'recursion', 'iteration', 'functions', 'methods', 'classes', 'objects', 'inheritance', 'encapsulation', 'polymorphism', 'abstraction', 'loops', 'for loop', 'while loop', 'conditionals', 'if else', 'exceptions', 'try except', 'file handling', 'generators', 'comprehensions', 'lambda functions'], 'rp-quiz', 'computer science', [''])
 print(result)

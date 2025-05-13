@@ -6,7 +6,7 @@ import random
 DB_CONFIG = {
     "dbname": "quiz_chaptermaster",
     "user": "postgres",
-    "password": "Inetframe",
+    "password": "Hemanth",
     "host": "localhost",
     "port": "5432"
 }
