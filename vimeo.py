@@ -12,17 +12,17 @@ SUBJECT = "electronics"
 LEVEL = "electronics"
 TOTAL_QUESTIONS = 20
 SOLR_TARGET = 15
-MAX_KEYWORDS = 20
+MAX_KEYWORDS = 200
 COMBINED_KEYWORDS_LIMIT = 50
 AI_URL = "http://164.52.212.233:8010/pi-chat-prod"
 SOLR_URL = 'http://164.52.201.193:8983/solr/rp-quiz'
 HEADERS = {"Content-Type": "application/json"}
 AI_DELAY_SECONDS = 7
 MAX_RETRIES = 3
-VIDEO_ID = '981861307'  # For fetching keywords
+VIDEO_ID = '982394038'  # For fetching keywords
 
 # Manually set section name
-SECTION_NAME = "design of adders, subtractors, mux"
+SECTION_NAME = "RTL"
 
 # === DATABASE CONFIG ===
 DB_CONFIG = {
@@ -193,8 +193,8 @@ def main():
         print(f"  B. {q['option_b']}")
         print(f"  C. {q['option_c']}")
         print(f"  D. {q['option_d']}")
-        print(f"  ✅ Correct Answer: {q['correct_answer']} - {q['correct_answer_text']}")
-        print(f"  📝 Explanation: {q['answer_explanation']}\n")
+        print(f"  Correct Answer: {q['correct_answer']} - {q['correct_answer_text']}")
+        print(f"  Explanation: {q['answer_explanation']}\n")
 
 if __name__ == "__main__":
     main()
