@@ -2,7 +2,7 @@ import psycopg2
 from collections import Counter
 
 # === CONFIGURATION ===
-VIDEO_ID = '982394038'  # Your video ID
+VIDEO_ID = '982406834'  # Your video ID
 DB_CONFIG = {
     "dbname": "piruby_automation",
     "user": "postgres",
@@ -16,7 +16,7 @@ def fetch_all_keywords(video_id):
         with psycopg2.connect(**DB_CONFIG) as conn:
             with conn.cursor() as cur:
                 cur.execute("""
-                    SELECT critical_all_keywords
+                    SELECT critical_keywords
                     FROM public.new_vimeo_master_m
                     WHERE video_id = %s
                     ORDER BY _offset
