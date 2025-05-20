@@ -9,29 +9,80 @@ headers = {
 
 # Your input text
 input_text = """
-Welcome to today's session on Pandas, one of the most powerful libraries in Python for data manipulation and analysis.
+Top 30 Physical Design Keywords (with frequency):
+tool – 17
 
-Pandas introduces two key data structures: the DataFrame and the Series. These make it easy to handle structured data, such as CSV files or SQL tables. 
-Now imagine you're working with a huge dataset about customer behavior — instead of manually filtering records (or climbing a volcano 🏔️), you can use simple Pandas methods like `groupby` and `merge` to analyze the data efficiently.
+standard cells – 10
 
-Another important feature is the ability to reshape your data using `pivot_table`, which is extremely helpful in reporting and analytics. Remember, being able to transform your data quickly is like having an astronaut's superpower 🚀 in the world of data science.
+flip-flops – 10
 
-Okay, quick recap: DataFrames, Series, groupby, merge, pivot_table — these are your new best friends. Ignore distractions like unicorns 🦄, lemonade stands 🍋, or even pumpkin festivals 🎃 during your analysis!
+violations – 9
 
-In the next module, we'll dive deeper into performance optimization and memory management techniques in Pandas.
+synthesis stage – 9
 
-Thank you, and don’t forget — consistency beats random bananas 🍌 every time!
+static timing analysis – 8
 
+netlist – 8
+
+routing – 8
+
+placement – 8
+
+physical design – 7
+
+automatic place – 7
+
+constraints – 7
+
+core area – 7
+
+design rule check – 7
+
+clock tree synthesis – 6
+
+gate-level netlist – 6
+
+interconnections – 6
+
+power planning – 6
+
+floor planning – 4
+
+power grid – 4
+
+clock nets – 4
+
+clock skew – 4
+
+power – 4
+
+capacitance – 4
+
+timing – 3
+
+parasitic extraction – 3
+
+optical proximity correction – 3
+
+place-and-route – 5
+
+layout – 5
+
+macro cells – 5
 """
 
 # Create the prompt asking the model to generate MCQs
-prompt = f'''Given the following text, create 5 multiple-choice questions (MCQs).
+prompt = f'''Given the following list of keywords related to a physical design video of electronics, create 20 multiple-choice questions (MCQs).
 Focus only on important keywords and concepts from the text.
 Each MCQ should have 1 correct answer and 3 plausible incorrect options (distractors).
 Ignore unrelated or random words.
 Present the MCQs in a clear and concise format.
+The questions should be relevant to the topic of physical design in electronics.
+Give questions that are complex, application-based, and require reasoning.
+Make sure to include code snippets or code-based reasoning, and computation based in at least 70% of the questions.
 
-Text:
+
+Keywords:
 {input_text}'''
 
 payload = {
@@ -42,6 +93,21 @@ response = requests.post(url, headers=headers, json=payload, timeout=500)
 
 if response.status_code == 200:
     response_data = json.loads(response.text)
-    print(response_data)
+    # Print the raw response for debugging
+    print("Raw AI Response:", response_data)
+
+    # Try to print questions in a neat format if possible
+    if isinstance(response_data, list):
+        for idx, q in enumerate(response_data, 1):
+            print(f"\nQ{idx}: {q.get('question', 'No question found')}")
+            options = q.get('options', [])
+            for opt_idx, opt in enumerate(options, ord('A')):
+                print(f"   {chr(opt_idx)}. {opt}")
+            answer = q.get('answer')
+            if answer:
+                print(f"   Answer: {answer}")
+    else:
+        # If not structured, just print the text
+        print("\nAI Output:\n", response_data)
 else:
     print(f"Error: {response.status_code}")

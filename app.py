@@ -49,15 +49,20 @@ def fetch_questions_by_level(chapter, level, limit):
             return cur.fetchall()
 
 def build_batch(chapter, batch_number):
-    levels_needed = BATCH_SCHEME.get(batch_number, {})
-    batch = []
-    for level, count in levels_needed.items():
-        questions = fetch_questions_by_level(chapter, level, count)
-        if not questions or len(questions) < count:
-            return []
-        batch.extend(questions)
-    random.shuffle(batch)
-    return batch
+    for current in range(batch_number, 6):  # Try upward batches only from current to 5
+        levels_needed = BATCH_SCHEME.get(current, {})
+        batch = []
+        all_available = True
+        for level, count in levels_needed.items():
+            questions = fetch_questions_by_level(chapter, level, count)
+            if not questions or len(questions) < count:
+                all_available = False
+                break
+            batch.extend(questions)
+        if all_available:
+            random.shuffle(batch)
+            return batch, current
+    return [], None
 
 def get_next_batch_number(current_batch, score):
     if score >= 4:
@@ -102,13 +107,14 @@ else:
         st.markdown(f"**📘 Chapter:** {chapter}**")
 
         if 'questions' not in st.session_state or not st.session_state.questions:
-            questions = build_batch(chapter, st.session_state.batch_number)
+            questions, actual_batch = build_batch(chapter, st.session_state.batch_number)
             if not questions:
-                st.error(f"🚫 No questions available for Batch {st.session_state.batch_number}.")
+                st.error("🚫 No questions available for the selected or higher batches.")
                 st.session_state.quiz_started = False
                 st.stop()
             else:
                 st.session_state.questions = questions
+                st.session_state.batch_number = actual_batch  # Update to the actual batch used
                 st.session_state.current_question_idx = 0
 
         questions = st.session_state.questions
@@ -166,13 +172,15 @@ else:
                 st.stop()
             else:
                 if st.button("Continue to Next Quiz"):
-                    st.session_state.batch_number = next_batch
                     st.session_state.answers_submitted = False
-                    st.session_state.questions = build_batch(chapter, next_batch)
-                    st.session_state.responses = {}
-                    st.session_state.current_question_idx = 0
-                    if not st.session_state.questions:
-                        st.error(f"🚫 No questions available for Batch {next_batch}.")
+                    questions, actual_batch = build_batch(chapter, next_batch)
+                    if not questions:
+                        st.error(f"🚫 No questions available for Batch {next_batch} or higher.")
                         st.session_state.quiz_started = False
                         st.stop()
-                    st.rerun()
+                    else:
+                        st.session_state.questions = questions
+                        st.session_state.batch_number = actual_batch
+                        st.session_state.responses = {}
+                        st.session_state.current_question_idx = 0
+                        st.rerun()
