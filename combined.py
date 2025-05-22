@@ -124,7 +124,7 @@ def query_solr_with_boosted_keywords(keyword_weight_dict, section_name):
     }
 
     try:
-        res = requests.get(f"{SOLR_URL}/select", params=params, timeout=30)
+        res = requests.get(f"{SOLR_URL}/select", params=params, timeout=120)
         res.raise_for_status()
         docs = res.json().get('response', {}).get('docs', [])
         return docs
