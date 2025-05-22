@@ -3,7 +3,7 @@ import requests
 import json
 import time
 import re
-from collections import defaultdict
+from collections import defaultdict, Counter
 from datetime import datetime
 from nlp_keywords import get_weighted_queries, cleanPhraseFirst
 
@@ -15,7 +15,7 @@ LEVEL = "computer science"
 QUESTIONS_PER_CHAPTER = 20
 SOLR_PERCENT = 0.6
 MAX_KEYWORDS = 30
-COMBINED_KEYWORDS_LIMIT = 50
+COMBINED_KEYWORDS_LIMIT = 40
 AI_URL = "http://164.52.212.233:8010/pi-chat-prod"
 SOLR_URL = 'http://164.52.201.193:8983/solr/rp-quiz'
 HEADERS = {"Content-Type": "application/json"}
@@ -64,7 +64,10 @@ def fetch_all_keywords(video_id):
                 """, (video_id,))
                 row = cur.fetchone()
                 if row and isinstance(row[0], list):
-                    return row[0][:MAX_KEYWORDS]
+                    keywords = row[0][:MAX_KEYWORDS]
+                    if len(keywords) < MAX_KEYWORDS:
+                        print(f"[Keyword Check] Video ID {video_id} has only {len(keywords)} keywords (expected {MAX_KEYWORDS})")
+                    return keywords
     except Exception as e:
         print(f"[Keyword Fetch Error] {e}")
     return []
@@ -104,15 +107,27 @@ def query_solr_with_boosted_keywords(keyword_weight_dict, chapter_name):
         print(f"[Solr Error] {e}")
         return [], {}
 
-def solr_docs_to_questions(docs, highlights, chapter):
-    questions = []
+def extract_keywords_in_text(text, keywords):
+    found = set()
+    text_lower = text.lower()
+    for kw in keywords:
+        if re.search(r'\b' + re.escape(kw.lower()) + r'\b', text_lower):
+            found.add(kw)
+    return found
+
+def solr_docs_to_questions(docs, highlights, chapter, keyword_list):
+    keyword_counter = Counter()
+    processed_questions = []
+
     for doc in docs:
-        doc_id = doc.get('id')
-        hl = highlights.get(doc_id, {})
+        q_text = f"{doc.get('question', '')} {doc.get('explanation', '')}"
+        used_keywords = extract_keywords_in_text(q_text, keyword_list)
+        keyword_counter.update(used_keywords)
+
         options = [doc.get(f'option{i}', '') for i in range(1, 5)]
         correct_text = doc.get('answer', '')
         correct_letter = next((chr(65 + i) for i, opt in enumerate(options) if opt.strip() == correct_text.strip()), 'A')
-        questions.append({
+        processed_questions.append({
             "question_text": doc.get('question', ''),
             "option_a": options[0],
             "option_b": options[1],
@@ -127,74 +142,31 @@ def solr_docs_to_questions(docs, highlights, chapter):
             "course": LEVEL,
             "chapter": chapter,
             "section_name": "",
-            "solr_highlight": hl
+            "solr_highlight": highlights.get(doc.get('id'), {})
         })
-    return questions
 
-# === AI GENERATION ===
+    # Drop lower-scoring questions for overused keywords
+    used_q_keywords = []
+    for q in processed_questions:
+        q_text = f"{q['question_text']} {q['answer_explanation']}"
+        matched = extract_keywords_in_text(q_text, keyword_list)
+        score = sum(keyword_counter[k] for k in matched)
+        used_q_keywords.append((score, q))
+
+    used_q_keywords.sort(key=lambda x: x[0])
+    return [q for _, q in used_q_keywords[:round(QUESTIONS_PER_CHAPTER * SOLR_PERCENT)]]
+
 def extract_json_array(text):
     match = re.search(r'\[\s*{.*?}\s*\]', text, re.DOTALL)
     return match.group(0) if match else "[]"
 
-def generate_mcqs_from_keywords(keywords, count, chapter, section):
-    trimmed_keywords = keywords[:30]
-    keyword_list = ', '.join(f'"{kw}"' for kw in trimmed_keywords)
-
-    prompt = f'''
-You are an expert MCQ generator for ELECTRONICS.
-Generate {count} MCQs for the section "{section}" in chapter "{chapter}".
-Use these top keywords and combinations: {keyword_list}.
-Each question must:
-- Be technically sound and conceptually relevant.
-- Have exactly 1 correct answer and 3 plausible distractors.
-- Include at least 40% questions with code or calculations.
-- Output JSON only, no explanations. Format:
-[{{
-  "question_text": "...",
-  "option_a": "...",
-  "option_b": "...",
-  "option_c": "...",
-  "option_d": "...",
-  "correct_answer": "A",
-  "correct_answer_text": "...",
-  "answer_explanation": "...",
-  "difficulty_level": "L1",
-  "questiontype": "Single",
-  "subject": "{SUBJECT}",
-  "course": "{LEVEL}",
-  "chapter": "{chapter}",
-  "section_name": "{section}"
-}}]
-'''
-    payload = {"prompt": prompt.strip()}
-    time.sleep(AI_DELAY_SECONDS)
-
-    for attempt in range(1, MAX_RETRIES + 1):
-        try:
-            res = requests.post(AI_URL, headers=HEADERS, json=payload, timeout=120)
-            res.raise_for_status()
-            response_text = res.json().get("response") or res.json().get("content", "")
-            json_text = extract_json_array(response_text)
-            parsed = json.loads(json_text)
-            if isinstance(parsed, list) and all('question_text' in q for q in parsed):
-                return parsed
-        except Exception as e:
-            wait = AI_DELAY_SECONDS * attempt
-            print(f"[AI Gen Error] Attempt {attempt}: {e} - Retrying in {wait} sec")
-            time.sleep(wait)
-    return []
-
 def generate_mcqs_from_keywords(keyword_chunks, count, chapter, section):
-    """
-    Efficiently generate MCQs by sending keyword chunks to the AI.
-    """
     import math
     all_questions = []
     total_chunks = len(keyword_chunks)
     if total_chunks == 0 or count == 0:
         return []
 
-    # Distribute questions as evenly as possible
     questions_per_chunk = [count // total_chunks] * total_chunks
     for i in range(count % total_chunks):
         questions_per_chunk[i] += 1
@@ -249,7 +221,7 @@ Each question must:
                 wait = AI_DELAY_SECONDS * attempt
                 print(f"[AI Gen Error] Chunk {idx+1}/{total_chunks}, Attempt {attempt}: {e} - Retrying in {wait} sec")
                 time.sleep(wait)
-    # Deduplicate by question text
+
     seen = set()
     deduped_questions = []
     for q in all_questions:
@@ -259,7 +231,6 @@ Each question must:
             seen.add(qtext)
     return deduped_questions[:count]
 
-# === MAIN CHAPTER PROCESSING ===
 def process_chapter(chapter, section_videos):
     print(f"\n[{datetime.now().strftime('%H:%M:%S')}] Processing Chapter: {chapter}")
     all_keywords = []
@@ -275,12 +246,11 @@ def process_chapter(chapter, section_videos):
         cleanPhraseFirst(p): min(round(score, 2), 3.5)
         for p, score in phrasescorelist if score >= 1.0
     }
-    weighted_keywords = dict(sorted(weighted_keywords.items(), key=lambda x: -x[1])[:MAX_KEYWORDS])
+    weighted_keywords = dict(sorted(weighted_keywords.items(), key=lambda x: -x[1])[:COMBINED_KEYWORDS_LIMIT])
     keyword_list = list(weighted_keywords.keys())
 
-    # --- Chunk keywords for AI generation ---
-    chunk_size = 10  # You can tune this (10-15 is usually safe)
-    overlap = 3      # Overlap between chunks to encourage correlation
+    chunk_size = 10
+    overlap = 3
     keyword_chunks = []
     for i in range(0, len(keyword_list), chunk_size - overlap):
         chunk = keyword_list[i:i + chunk_size]
@@ -289,7 +259,7 @@ def process_chapter(chapter, section_videos):
 
     solr_count = round(QUESTIONS_PER_CHAPTER * SOLR_PERCENT)
     solr_docs, solr_highlights = query_solr_with_boosted_keywords(weighted_keywords, chapter)
-    solr_questions = solr_docs_to_questions(solr_docs, solr_highlights, chapter)[:solr_count]
+    solr_questions = solr_docs_to_questions(solr_docs, solr_highlights, chapter, keyword_list)
 
     print(f"[Info] Solr returned {len(solr_questions)} / {solr_count} needed.")
     remaining_ai_count = QUESTIONS_PER_CHAPTER - len(solr_questions)
@@ -300,15 +270,6 @@ def process_chapter(chapter, section_videos):
         print(f"[Info] AI generated {len(ai_questions)} questions.")
 
     all_questions = solr_questions + ai_questions
-
-    # === METRICS: Keyword Coverage ===
-    def extract_keywords_in_text(text, keywords):
-        found = set()
-        text_lower = text.lower()
-        for kw in keywords:
-            if re.search(r'\b' + re.escape(kw.lower()) + r'\b', text_lower):
-                found.add(kw)
-        return found
 
     used_keywords = set()
     for q in all_questions:
@@ -323,11 +284,9 @@ def process_chapter(chapter, section_videos):
     if missing_keywords:
         print(f"  Missing: {sorted(missing_keywords)}")
 
-    # === EFFICIENT RETRY FOR MISSING KEYWORDS ===
     MAX_EXTRA_QUESTIONS = 5
     if missing_keywords:
         print(f"[Info] Generating extra questions to cover missing keywords...")
-        # Use missing keywords as a single chunk for retry
         retry_chunks = [list(missing_keywords)]
         extra_questions = generate_mcqs_from_keywords(
             retry_chunks,
@@ -351,7 +310,6 @@ def process_chapter(chapter, section_videos):
         else:
             print("[Success] All keywords covered in questions.")
 
-    # === PRINT QUESTIONS AND COVERAGE ===
     for i, q in enumerate(all_questions, 1):
         print(f"\nQ{i}: {q['question_text']}")
         print(f"  A. {q['option_a']}")
@@ -366,7 +324,6 @@ def process_chapter(chapter, section_videos):
         if len(matched) > 1:
             print(f"  [Combination]: {' + '.join(sorted(matched))}")
 
-# === RUN DRIVER ===
 def run():
     structure = fetch_course_structure(COURSE_ID)
     data_by_chapter = defaultdict(lambda: defaultdict(list))

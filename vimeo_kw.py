@@ -2,7 +2,7 @@ import psycopg2
 from collections import Counter
 
 # === CONFIGURATION ===
-VIDEO_ID = '982394038'  # Your video ID
+VIDEO_ID = '1001522042'  # Your video ID
 DB_CONFIG = {
     "dbname": "piruby_automation",
     "user": "postgres",
