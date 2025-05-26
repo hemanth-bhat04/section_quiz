@@ -25,8 +25,8 @@ MAX_RETRIES = 3
 # === DATABASE CONFIG ===
 # === LOCAL DB CONFIG ===
 LOCAL_DB_CONFIG = {
-    "dbname": "your_local_db_name",
-    "user": "your_local_user",  # likely 'postgres'
+    "dbname": "quiz_chaptermaster",
+    "user": "postgres",  # likely 'postgres'
     "password": "Hemanth",
     "host": "localhost",
     "port": "5432"
@@ -256,8 +256,9 @@ def insert_questions_to_local_db(questions):
     try:
         with psycopg2.connect(**LOCAL_DB_CONFIG) as conn:
             with conn.cursor() as cur:
-                for q in questions:
+                for idx, q in enumerate(questions, 1):
                     cur.execute(insert_query, q)
+                    print(f"[DB Inserted] Q{idx}: {q['question_text'][:80]}... (Section: {q['section_name']}, Chapter: {q['chapter']})")
             conn.commit()
             print(f"[Success] Inserted {len(questions)} questions into local database.")
     except Exception as e:
