@@ -83,7 +83,7 @@ def fetch_all_keywords(video_id):
 
 # === SOLR FUNCTIONS ===
 def query_solr_with_boosted_keywords(keyword_weight_dict, chapter_name):
-    query_parts = [f'"{chapter_name}"^3']
+    query_parts = [f'"{chapter_name}"^4']
     for phrase, weight in keyword_weight_dict.items():
         weight = min(round(weight, 2), 3.5)
         if ' ' in phrase:
