@@ -343,7 +343,16 @@ def process_chapter(chapter, section_videos):
         else:
             print("[Success] All keywords covered in questions.")
 
-    insert_questions_to_local_db(all_questions)
+    # Deduplicate all_questions by question_text before DB insert
+    seen = set()
+    unique_questions = []
+    for q in all_questions:
+        qtext = q.get("question_text", "").strip().lower()
+        if qtext and qtext not in seen:
+            unique_questions.append(q)
+            seen.add(qtext)
+
+    insert_questions_to_local_db(unique_questions)
 
     for i, q in enumerate(all_questions, 1):
         print(f"\nQ{i}: {q['question_text']}")
