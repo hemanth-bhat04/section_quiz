@@ -195,6 +195,7 @@ Each question must:
 - Have exactly 1 correct answer and 3 plausible distractors.
 - Include at least 40% questions with code or calculations.
 - In at least half the questions, use two or more keywords together in the question or options.
+- Generate more of difficult questions that is of level 3. 
 - Output JSON only, no explanations. Format:
 [{{
   "question_text": "...",
