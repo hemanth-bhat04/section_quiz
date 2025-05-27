@@ -8,7 +8,7 @@ DB_CONFIG = {
     "port": "5432"
 }
 
-VIDEO_ID = '982406834'  # Change if needed
+VIDEO_ID = '1001522042'  # Change if needed
 OUTPUT_FILE = f"transcript_{VIDEO_ID}.txt"
 
 def fetch_video_text(video_id):
