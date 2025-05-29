@@ -21,15 +21,14 @@ BATCH_SCHEME = {
 }
 
 # === DB Functions ===
-
 def fetch_available_chapter():
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
             cur.execute('''
-                SELECT chapter FROM (
-                    SELECT DISTINCT chapter
-                    FROM "BaseModel_quizchaptermaster"
-                ) AS sub
+                SELECT chapter_name
+                FROM mcq_master2
+                WHERE chapter_name IS NOT NULL
+                GROUP BY chapter_name
                 ORDER BY RANDOM()
                 LIMIT 1
             ''')
@@ -39,17 +38,17 @@ def fetch_questions_by_level(chapter, level, limit):
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
             cur.execute('''
-                SELECT id, question_text, option_a, option_b, option_c, option_d, correct_answer,
-                       correct_answer_text, answer_explanation
-                FROM "BaseModel_quizchaptermaster"
-                WHERE chapter = %s AND difficulty_level = %s
+                SELECT primary_id, question, option1, option2, option3, option4, answer,
+                       answer, explanation
+                FROM mcq_master2
+                WHERE chapter_name = %s AND difficulty_level = %s
                 ORDER BY RANDOM()
                 LIMIT %s
             ''', (chapter, level, limit))
             return cur.fetchall()
 
 def build_batch(chapter, batch_number):
-    for current in range(batch_number, 6):  # Try upward batches only from current to 5
+    for current in range(batch_number, 6):
         levels_needed = BATCH_SCHEME.get(current, {})
         batch = []
         all_available = True
@@ -114,7 +113,7 @@ else:
                 st.stop()
             else:
                 st.session_state.questions = questions
-                st.session_state.batch_number = actual_batch  # Update to the actual batch used
+                st.session_state.batch_number = actual_batch
                 st.session_state.current_question_idx = 0
 
         questions = st.session_state.questions
