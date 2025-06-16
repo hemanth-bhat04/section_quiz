@@ -1,8 +1,6 @@
 import psycopg2
-from collections import Counter
 
-# === CONFIGURATION ===
-VIDEO_ID = '1001522042'  # Your video ID
+# DB config
 DB_CONFIG = {
     "dbname": "piruby_automation",
     "user": "postgres",
@@ -11,42 +9,23 @@ DB_CONFIG = {
     "port": "5432"
 }
 
-def fetch_all_keywords(video_id):
+# Function to fetch and save transcript
+def save_transcript(video_id, output_file="transcript.txt"):
     try:
         with psycopg2.connect(**DB_CONFIG) as conn:
             with conn.cursor() as cur:
                 cur.execute("""
-                    SELECT critical_all_keywords
-                    FROM public.new_vimeo_master_m
+                    SELECT text FROM public.new_vimeo_master_m
                     WHERE video_id = %s
                     ORDER BY _offset
                 """, (video_id,))
-                result = cur.fetchall()
-                keywords = []
-                for row in result:
-                    if isinstance(row[0], list):
-                        keywords.extend(row[0])
-                return keywords
+                rows = cur.fetchall()
+                transcript = " ".join(row[0] for row in rows if row[0])
+                with open(output_file, "w", encoding="utf-8") as f:
+                    f.write(transcript)
+                print(f"Transcript saved to {output_file}")
     except Exception as e:
-        print(f"[Keyword Fetch Error] {e}")
-        return []
+        print(f"Error: {e}")
 
-def main():
-    keywords = fetch_all_keywords(VIDEO_ID)
-
-    if not keywords:
-        print("No keywords found for this video.")
-        return
-
-    print(f"✅ Total keywords fetched: {len(keywords)}\n")
-
-    for i, word in enumerate(keywords, 1):
-        print(f"{i:3}. {word}")
-
-    print("\n--- Unique Keywords (with frequency) ---")
-    counts = Counter(keywords)
-    for word, count in counts.most_common():
-        print(f"{word}: {count}")
-
-if __name__ == "__main__":
-    main()
+# Usage
+save_transcript("982394038")

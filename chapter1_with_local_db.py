@@ -3,6 +3,7 @@ import requests
 import json
 import time
 import re
+import hashlib
 from collections import defaultdict, Counter
 from datetime import datetime
 from nlp_keywords import get_weighted_queries, cleanPhraseFirst
@@ -16,7 +17,7 @@ QUESTIONS_PER_CHAPTER = 20
 SOLR_PERCENT = 0.6
 MAX_KEYWORDS = 30
 COMBINED_KEYWORDS_LIMIT = 40
-AI_URL = "http://164.52.212.233:8010/pi-chat-prod"
+AI_URL = "http://164.52.194.25:8006/chat"
 SOLR_URL = 'http://164.52.201.193:8983/solr/rp-quiz'
 HEADERS = {"Content-Type": "application/json"}
 AI_DELAY_SECONDS = 7
@@ -219,7 +220,7 @@ Each question must:
 
         for attempt in range(1, MAX_RETRIES + 1):
             try:
-                res = requests.post(AI_URL, headers=HEADERS, json=payload, timeout=120)
+                res = requests.post(AI_URL, headers=HEADERS, json=payload, timeout=240)
                 res.raise_for_status()
                 response_text = res.json().get("response") or res.json().get("content", "")
                 json_text = extract_json_array(response_text)
@@ -242,26 +243,39 @@ Each question must:
     return deduped_questions[:count]
 
 
-def insert_questions_to_local_db(questions):
+def insert_questions_to_local_db(questions, chapter):
     insert_query = """
     INSERT INTO mcq_master2 (
         question, answer, option1, option2, option3, option4,
         explanation, subject, course_name, chapter_name, section_name,
-        difficulty_level, q_category
+        difficulty_level, q_category, question_hash, course_id, chapter_number
     ) VALUES (
         %(question_text)s, %(correct_answer_text)s, %(option_a)s, %(option_b)s, %(option_c)s, %(option_d)s,
         %(answer_explanation)s, %(subject)s, %(course)s, %(chapter)s, %(section_name)s,
-        %(difficulty_level)s, %(questiontype)s
+        %(difficulty_level)s, %(questiontype)s, %(question_hash)s, %(course_id)s, %(chapter_number)s
     )
+    """
+    select_query = """
+    SELECT 1 FROM mcq_master2 WHERE question_hash = %s AND course_id = %s LIMIT 1
     """
     try:
         with psycopg2.connect(**LOCAL_DB_CONFIG) as conn:
             with conn.cursor() as cur:
+                inserted = 0
                 for idx, q in enumerate(questions, 1):
+                    qtext = q.get("question_text", "")
+                    q["question_hash"] = get_question_hash(qtext)
+                    q["course_id"] = COURSE_ID
+                    q["chapter_number"] = chapter
+                    cur.execute(select_query, (q["question_hash"], q["course_id"]))
+                    if cur.fetchone():
+                        print(f"[Skipped Duplicate] Q{idx}: {qtext[:80]}...")
+                        continue
                     cur.execute(insert_query, q)
-                    print(f"[DB Inserted] Q{idx}: {q['question_text'][:80]}... (Section: {q['section_name']}, Chapter: {q['chapter']})")
+                    print(f"[DB Inserted] Q{idx}: {qtext[:80]}... (Section: {q['section_name']}, Chapter: {q['chapter']})")
+                    inserted += 1
             conn.commit()
-            print(f"[Success] Inserted {len(questions)} questions into local database.")
+            print(f"[Success] Inserted {inserted} new questions into local database.")
     except Exception as e:
         print(f"[DB Error] {e}")
 
@@ -353,7 +367,12 @@ def process_chapter(chapter, section_videos):
             unique_questions.append(q)
             seen.add(qtext)
 
-    insert_questions_to_local_db(unique_questions)
+    # Tag each question with course_id and chapter_number before insert
+    for q in unique_questions:
+        q["course_id"] = COURSE_ID
+        q["chapter_number"] = chapter
+
+    insert_questions_to_local_db(unique_questions, chapter)
 
     for i, q in enumerate(all_questions, 1):
         print(f"\nQ{i}: {q['question_text']}")
@@ -380,3 +399,6 @@ def run():
 
 if __name__ == "__main__":
     run()
+
+def get_question_hash(qtext):
+    return hashlib.sha256(qtext.strip().lower().encode('utf-8')).hexdigest()
